@@ -27,3 +27,28 @@ fragments shader to use.
 Before the fragment shaders run, clipping is performed. Clipping discards all fragments that are outside your 
 view, increasing performance. 
 
+### Normalized Device Coordinates (NDC)
+
+Once your vertex coordinates have been processed in the vertex shader, they should be in 
+normalized device coordinates which is a small space where the x, y and z values vary 
+from -1.0 to 1.0
+
+We can sned our defined vertex data:
+
+cpp```float vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+     0.0f,  0.5f, 0.0f
+};  ```
+
+as input to the first process of the graphics pipeline: the vertex shader
+
+This is done by creating memory of the GPU where we store the vertex data, configure
+how OpenGL should interpret the memory and specify how to send the data to the graphics card
+
+__vertex buffer objects (VBO)__
+
+used to manage said memory, this enables us to store a large number of vertices in the GPU's memory
+
+sending data to the GPU from the CPU is kinda slow, so wherever we can we can try to 
+send as much data as possible at once. 
