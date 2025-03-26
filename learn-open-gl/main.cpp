@@ -1,6 +1,6 @@
+#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -9,8 +9,15 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 int main() {
+
 	//std::cout << "Hi mom" << std::endl;
 
+	//vertices for triangle lol
+	float vertices[] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.0f,  0.5f, 0.0f,
+	};
 
 
 	glfwInit();
@@ -63,7 +70,7 @@ int main() {
 		// input
 		processInput(window);
 		// rendering commands here
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.2f, 0.3f, 0.7f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// check and call events and swap the buffers
