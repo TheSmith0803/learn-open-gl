@@ -52,3 +52,28 @@ used to manage said memory, this enables us to store a large number of vertices 
 
 sending data to the GPU from the CPU is kinda slow, so wherever we can we can try to 
 send as much data as possible at once. 
+
+`glBufferData` is a function specifically targeted to copy user-defined data into the currently bound buffer.
+
+arg1: type of buffer to copy data into
+arg2: size of data in bytes we want to pass to the buffer, can use `sizeof(whatever_you're_drawing)`
+arg3: actual data to send 
+arg4: specifies how we want the graphics card to manage the given data. This can take 3 forms:
+
+`GL_STREAM_DRAW`: the data is set only once and used by the GPU at most a few times.
+`GL_STATIC_DRAW`: the data is set only once and used many times.
+`GL_DYANMIC_DRAW`: the data is changed a lot and used many times.
+
+### Vertex Array Objects (VAO)
+
+A vertex array object (also known as a VAO) can be bound just like a vertex buffer object and any 
+subesequent vertex attribute calls from that point on will be stored inside the VAO. 
+
+__Core OpenGL _requires_ that we use a VAO so it knows what to do with our vertex inputs.
+If we fail to bind a VAO, OpenGL will most likely refuse to draw anything.__
+
+A vertex array object stores the following:
+
+- Calls to `glEnableVertexAttribArray` or `glDisableVertexAttribArray`.
+- Vertex attribute configurations via `glVertexAttribPointer`.
+- Vertex buffer objects associated with vertex attributes by calls to `glVertexAttribPointer`.
