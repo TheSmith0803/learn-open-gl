@@ -35,11 +35,13 @@ from -1.0 to 1.0
 
 We can sned our defined vertex data:
 
-cpp```float vertices[] = {
+```cpp
+float vertices[] = {
     -0.5f, -0.5f, 0.0f,
      0.5f, -0.5f, 0.0f,
      0.0f,  0.5f, 0.0f
-};  ```
+};  
+```
 
 as input to the first process of the graphics pipeline: the vertex shader
 
@@ -77,3 +79,22 @@ A vertex array object stores the following:
 - Calls to `glEnableVertexAttribArray` or `glDisableVertexAttribArray`.
 - Vertex attribute configurations via `glVertexAttribPointer`.
 - Vertex buffer objects associated with vertex attributes by calls to `glVertexAttribPointer`.
+
+### Element Buffer Objects (EBOs)
+
+An EBO is a buffer, just like a vertex buffer object, that stores indices that OpenGL uses
+to decide what vertices to draw. This so called _index drawing_ is exactly the solution to 
+our problem.
+
+```cpp
+float vertices[] = {
+     0.5f,  0.5f, 0.0f,  // top right
+     0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f   // top left 
+};
+unsigned int indices[] = {  // note that we start from 0!
+    0, 1, 3,   // first triangle
+    1, 2, 3    // second triangle
+};  
+```
