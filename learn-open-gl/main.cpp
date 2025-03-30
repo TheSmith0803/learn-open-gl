@@ -1,6 +1,8 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <shaders/default.vert>
+#include <shaders/default.frag>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -121,10 +123,28 @@ int main() {
 
 	//vertices for triangle lol
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
+		//triangle one
+		 0.5f,  0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
-		 0.0f,  0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f
 	};
+	unsigned int indices[] = {
+		0, 1, 3, //first triangle
+		1, 2, 3 //second triangle
+	};
+
+
+	//init of the Element Buffer Object
+	unsigned int EBO;
+	glGenBuffers(1, &EBO);
+
+
+	//copy indices into the buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+
 
 	//init of vertex buffer object (VBO)
 	unsigned int VBO;
@@ -171,7 +191,7 @@ int main() {
 		//draw our triangle
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
