@@ -241,7 +241,6 @@ int main() {
 	glDeleteProgram(shaderProgram1);
 
 	
-
 	
 
 	glfwTerminate();
