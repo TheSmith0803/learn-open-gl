@@ -1,39 +1,24 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <fstream>
+#include <sstream>
 //#include <shaders/default.vert>
 //#include <shaders/default.frag>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
+const char* readTextFile(const std::string& filePath);
+
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-
-const char* fragmentShaderSource1 = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(0.0f, 0.5f, 0.9f, 1.0f);\n"
-"}\0";
-
-const char* fragmentShaderSource2 = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(0.75f, 0.2f, 0.0f, 1.0f);\n"
-"}\0";
+const char* vertexShaderSource = readTextFile("default.vert");
+const char* fragmentShaderSource1 = readTextFile("default.frag");
+const char* fragmentShaderSource2 = readTextFile("default.frag");
 
 int main() {
-
-	
 
 	//std::cout << "Hi mom" << std::endl;
 
@@ -240,6 +225,10 @@ int main() {
 	glDeleteBuffers(1, &EBO);
 	glDeleteProgram(shaderProgram1);
 
+	delete[] vertexShaderSource;
+	delete[] fragmentShaderSource1;
+	delete[] fragmentShaderSource2;
+
 	
 	
 
@@ -266,3 +255,31 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
+
+// This function loads other code files as strings (mainly going to be used for importing shader files into main.cpp)
+const char* readTextFile(const std::string& filePath) 
+{
+	std::string content;
+	std::ifstream fileStream(filePath, std::ios::in);
+
+	if (!fileStream.is_open()) {
+		std::cerr << "Could not read file " << filePath << ". File does not exist." << std::endl;
+		return nullptr;
+	}
+
+	std::string line;
+	while (std::getline(fileStream, line)) {
+		content.append(line + "\n");
+	}
+
+	fileStream.close();
+
+	//allocate memory for the content and copy the string data
+	char* cstr = new char[content.length() + 1];
+    strncpy_s(cstr, content.c_str());
+
+	std::cout << "Content: " << content << std::endl;
+
+	return cstr;
+}
+

@@ -136,8 +136,30 @@ by querying `GL_MAX_VERTEX_ATTRIBS`:
 ```cpp
 int nrAttributes;
 glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-std::cout << "Maximum
+std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 ```
 
 This often returns the minimum of 16 which should be more
 than enough for most purposes.
+
+### Types
+
+GLSL has, like any other programming language, data types for specifying what
+kind of variable we want to work with. GLSL has most of the default basic types we 
+know from languages like C:
+`float, double, uint, and bool`
+GLSL also features two container types that we will be using a lot,
+namely, `vectors` and `matrices`. 
+
+### Vectors
+
+a vector in GLSL is a 1, 2, 3, or 4 component container for any of the basic
+types just mentioned. They can take the following form (`n` represents the number of components):
+
+- `vecn`: the default vector of `n` floats
+- `bvecn`: a vector of `n` booleans
+- `ivecn`: a vector of `n` integers
+- `uvecn`: a vector of `n` unsigned integers
+- `dvecn`: a vector of `n` double components
+
+Most of the time we will be using the basic `vecn` since floats are sufficient for most of our purposes.

@@ -1,2 +1,2 @@
 ﻿  main.cpp
-  learn-open-gl.vcxproj -> C:\Repos\learn-open-gl\x64\Debug\learn-open-gl.exe
+C:\Repos\learn-open-gl\learn-open-gl\main.cpp(279,5): error C2660: 'strncpy_s': function does not take 3 arguments
