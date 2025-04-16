@@ -24,11 +24,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="..\include\shaders\default.frag">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="..\include\shaders\default.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\include\shaders\default.frag">
+      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
 </Project>

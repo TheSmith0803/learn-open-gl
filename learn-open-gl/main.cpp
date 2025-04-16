@@ -9,18 +9,20 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
-const char* readTextFile(const std::string& filePath);
+std::string readTextFile(const std::string& filePath);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const char* vertexShaderSource = readTextFile("default.vert");
-const char* fragmentShaderSource1 = readTextFile("default.frag");
-const char* fragmentShaderSource2 = readTextFile("default.frag");
-
 int main() {
 
-	//std::cout << "Hi mom" << std::endl;
+	std::string  vertexCode = readTextFile("default.vert");
+	std::string fragmentCode1 = readTextFile("default.frag");
+	std::string fragmentCode2 = readTextFile("default.frag");
+
+	const char* vertexShaderSource = vertexCode.c_str();
+	const char* fragmentShaderSource1 = fragmentCode1.c_str();
+	const char* fragmentShaderSource2 = fragmentCode2.c_str();
 
 
 	glfwInit();
@@ -130,6 +132,8 @@ int main() {
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader1);
 	
+	
+	
 
 	//vertices for triangle lol
 	float vertices[] = {
@@ -225,10 +229,6 @@ int main() {
 	glDeleteBuffers(1, &EBO);
 	glDeleteProgram(shaderProgram1);
 
-	delete[] vertexShaderSource;
-	delete[] fragmentShaderSource1;
-	delete[] fragmentShaderSource2;
-
 	
 	
 
@@ -257,29 +257,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 }
 
 // This function loads other code files as strings (mainly going to be used for importing shader files into main.cpp)
-const char* readTextFile(const std::string& filePath) 
+std::string readTextFile(const std::string& filePath) 
 {
-	std::string content;
-	std::ifstream fileStream(filePath, std::ios::in);
-
-	if (!fileStream.is_open()) {
-		std::cerr << "Could not read file " << filePath << ". File does not exist." << std::endl;
-		return nullptr;
-	}
-
-	std::string line;
-	while (std::getline(fileStream, line)) {
-		content.append(line + "\n");
-	}
-
-	fileStream.close();
-
-	//allocate memory for the content and copy the string data
-	char* cstr = new char[content.length() + 1];
-    strncpy_s(cstr, content.c_str());
-
-	std::cout << "Content: " << content << std::endl;
-
-	return cstr;
+	std::ifstream file(filePath);
+	std::stringstream buffer;
+	buffer << file.rdbuf();
+	return buffer.str();
 }
 
