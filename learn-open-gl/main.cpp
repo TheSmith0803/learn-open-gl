@@ -16,9 +16,9 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main() {
 
-	std::string  vertexCode = readTextFile("default.vert");
-	std::string fragmentCode1 = readTextFile("default.frag");
-	std::string fragmentCode2 = readTextFile("default.frag");
+	std::string  vertexCode = readTextFile("other.vert");
+	std::string fragmentCode1 = readTextFile("other.frag");
+	std::string fragmentCode2 = readTextFile("C:\\Repos\\learn-open-gl\\include\\shaders\\default.frag");
 
 	const char* vertexShaderSource = vertexCode.c_str();
 	const char* fragmentShaderSource1 = fragmentCode1.c_str();
