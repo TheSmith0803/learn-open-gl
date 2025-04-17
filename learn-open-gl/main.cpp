@@ -18,7 +18,7 @@ int main() {
 
 	std::string  vertexCode = readTextFile("other.vert");
 	std::string fragmentCode1 = readTextFile("other.frag");
-	std::string fragmentCode2 = readTextFile("C:\\Repos\\learn-open-gl\\include\\shaders\\default.frag");
+	std::string fragmentCode2 = readTextFile("other.frag");
 
 	const char* vertexShaderSource = vertexCode.c_str();
 	const char* fragmentShaderSource1 = fragmentCode1.c_str();
