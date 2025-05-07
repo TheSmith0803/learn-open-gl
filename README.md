@@ -289,3 +289,16 @@ index/location of the uniform attribute in the shader.
 Once we have the index/location of the uniform, we can update its values. Instead of passing a single 
 color to the fragment shader, we can actually change the color over time :ooo
 
+```cpp
+float timeValue = glfwGetTime();
+float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+glUseProgram(shaderProgram);
+glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+```
+
+First we retrieve the running time in seconds via `glfwGetTime()`. 
+Then we vary the color in the range of 0.0 - 1.0 by using the `sin` function and store the result in 
+`greenValue`.
+
+
