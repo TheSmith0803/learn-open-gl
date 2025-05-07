@@ -246,3 +246,46 @@ input in the fragment shader.
 Since they both have the same name, `vertexColor` in the fragment shader is linked to the
 `vertexColor` in the vertex shader
 
+### Uniforms
+
+Uniforms are another way to pass data from our application on the CPU to the shaders on the GPU.
+Uniforms are slightly different than vertex attributes though.
+
+1. Uniforms are global (Uniforms are unique per shader program object and can be accessed from any 
+   shader at any point in the program)
+2. Whatever you set the uniform value to, they will keep their values until they are reset or updated.
+
+
+to declare a uniform in GLSL we simply add the `uniform` keyword to a shader with a type and a name.
+
+Example: 
+
+```cpp
+#version 330 core
+out vec4 FragColor;
+  
+uniform vec4 ourColor; // we set this variable in the OpenGL code.
+
+void main()
+{
+    FragColor = ourColor;
+}   
+```
+
+In this shader program we defclared a uniform `vec4 ourColor` in the fragment shader and set the 
+fragment's output color to the content of this uniform value. 
+
+Since uniforms are global variables we can define them in any shader stage we'd like so no need to go through 
+the vertex shader again to get something to the fragement shader.
+We're not using this uniform in the vertex shader so there is no need to define it there.
+
+_If you declare a uniform that isn't used anywhere in your GLSL code the compiler will 
+silently remove the variable from the compiled version which is the cause for several 
+frustrating errors; keep this in mind!_
+
+In order to add data to the uniform variable in the fragment shader code above, we need to first find the
+index/location of the uniform attribute in the shader.
+
+Once we have the index/location of the uniform, we can update its values. Instead of passing a single 
+color to the fragment shader, we can actually change the color over time :ooo
+
