@@ -136,9 +136,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="other.frag" />
-    <None Include="other.vert" />
-    <None Include="other1.frag" />
+    <None Include="color1.frag" />
+    <None Include="shader.vert" />
+    <None Include="color2.frag" />
     <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

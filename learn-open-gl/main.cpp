@@ -9,6 +9,8 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
+//for reading text files (aka shaders)
+//convert to c string using c_str() method after
 std::string readTextFile(const std::string& filePath);
 
 const unsigned int SCR_WIDTH = 800;
@@ -16,10 +18,12 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main() {
 
-	std::string  vertexCode = readTextFile("other.vert");
-	std::string fragmentCode1 = readTextFile("other.frag");
-	std::string fragmentCode2 = readTextFile("other1.frag");
+	//import shader code
+	std::string  vertexCode = readTextFile("shader.vert");
+	std::string fragmentCode1 = readTextFile("color1.frag");
+	std::string fragmentCode2 = readTextFile("color2.frag");
 
+	//convert shader code to C style string
 	const char* vertexShaderSource = vertexCode.c_str();
 	const char* fragmentShaderSource1 = fragmentCode1.c_str();
 	const char* fragmentShaderSource2 = fragmentCode2.c_str();
