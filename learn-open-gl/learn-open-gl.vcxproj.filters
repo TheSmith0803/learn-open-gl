@@ -30,13 +30,8 @@
     <None Include="other.frag">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\include\shaders\default.frag">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="..\include\shaders\default.vert">
-      <Filter>Source Files</Filter>
-    </Text>
+    <None Include="other1.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

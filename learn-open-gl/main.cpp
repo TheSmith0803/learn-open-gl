@@ -18,7 +18,7 @@ int main() {
 
 	std::string  vertexCode = readTextFile("other.vert");
 	std::string fragmentCode1 = readTextFile("other.frag");
-	std::string fragmentCode2 = readTextFile("other.frag");
+	std::string fragmentCode2 = readTextFile("other1.frag");
 
 	const char* vertexShaderSource = vertexCode.c_str();
 	const char* fragmentShaderSource1 = fragmentCode1.c_str();
@@ -215,7 +215,7 @@ int main() {
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);

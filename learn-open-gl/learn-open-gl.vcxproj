@@ -138,12 +138,7 @@
   <ItemGroup>
     <None Include="other.frag" />
     <None Include="other.vert" />
-    <Text Include="..\include\shaders\default.frag">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="..\include\shaders\default.vert">
-      <FileType>Document</FileType>
-    </Text>
+    <None Include="other1.frag" />
     <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
