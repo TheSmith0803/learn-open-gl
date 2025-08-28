@@ -1,6 +1,7 @@
 #version 330 core
 out vec4 FragColor;
 
+// imports the color from the vertex shader
 in vec3 color;
 
 void main()

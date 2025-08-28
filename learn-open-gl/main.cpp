@@ -63,12 +63,12 @@ int main() {
 	// Vertices coordinates
 	GLfloat vertices[] =
 	{//				COORDINATES                          /     COLORS
-		-0.5f,    -0.5f * float(sqrt(3)) / 3,     0.0f,    0.8f, 0.3f, 0.02f,// Lower left corner
-		 0.5f,    -0.5f * float(sqrt(3)) / 3,     0.0f,    0.8f, 0.3f, 0.02f,// Lower right corner
-		 0.0f,     0.5f * float(sqrt(3)) * 2 / 3, 0.0f,    1.0f, 0.6f, 0.32f,// Upper corner
-		-0.5f / 2, 0.5f * float(sqrt(3)) / 6,     0.0f,    0.9f, 0.45f, 0.17f,// Inner left
-		 0.5f / 2, 0.5f * float(sqrt(3)) / 6,     0.0f,    0.9f, 0.45f, 0.17f,// Inner right
-		 0.0f,    -0.5f * float(sqrt(3)) / 3,     0.0f,    0.8f, 0.3f, 0.02f,// Inner down
+		-0.5f,    -0.5f * float(sqrt(3)) / 3,     0.0f,    1.0f, 0.0f, 0.0f,// Lower left corner
+		 0.5f,    -0.5f * float(sqrt(3)) / 3,     0.0f,    0.0f, 1.0f, 0.0f,// Lower right corner
+		 0.0f,     0.5f * float(sqrt(3)) * 2 / 3, 0.0f,    0.0f, 0.0f, 1.0f,// Upper corner
+		-0.5f / 2, 0.5f * float(sqrt(3)) / 6,     0.0f,    0.5f, 0.0f, 0.5f,// Inner left
+		 0.5f / 2, 0.5f * float(sqrt(3)) / 6,     0.0f,    0.0f, 0.5f, 0.5f,// Inner right
+		 0.0f,    -0.5f * float(sqrt(3)) / 3,     0.0f,    0.5f, 0.5f, 0.0f,// Inner down
 	};
 
 	// Indices for vertices order
@@ -96,27 +96,28 @@ int main() {
 	EBO1.Unbind();
 
 
+
+	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
+
 	//very simple render loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// input
-		processInput(window);
+		//processInput(window);
 		// render
 		// clear the color buffer
-		
 
-		// activate shader
-		shaderProgram.Activate();
+		//specify color of background
 		glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
+		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
-		//making the triangle flash green
-		/*
-		float timeValue = glfwGetTime();
-		float greenValue = (sin(timeValue * 5.0f) / 2.0f) + 0.5f;
-		int vertexColorLocation = glGetUniformLocation(shaderProgram1, "ourColor");
-		glUseProgram(shaderProgram1);
-		glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
-		*/
+
+		// tell openGl what shader program we want to use
+		shaderProgram.Activate();
+		//assigns a value to the uniform; NOTE: must always be done after activating the Shader
+		glUniform1f(uniID, 0.5f);
+		
+		
 		VAO1.Bind();
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 
