@@ -140,7 +140,7 @@
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="color1.frag" />
+    <None Include="shader.frag" />
     <None Include="shader.vert" />
     <None Include="..\README.md" />
   </ItemGroup>
