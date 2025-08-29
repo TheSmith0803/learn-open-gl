@@ -7,14 +7,14 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <fstream>
 #include <sstream>
-//#include <shaders/default.vert>
-//#include <shaders/default.frag>
+
 
 #include"shaderClass.h"
 #include"Texture.h"
 #include"VBO.h"
 #include"EBO.h"
 #include"VAO.h"
+#include"Camera.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -89,6 +89,7 @@ int main() {
 		3, 0, 4,
 	};
 
+	// define shaders
 	Shader shaderProgram("shader.vert", "shader.frag");
 
 	VAO VAO1;
@@ -106,28 +107,22 @@ int main() {
 	VBO1.Unbind();
 	EBO1.Unbind();
 
-	// gets id of uniform called "scale"
-	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
-
 	// Texture
-	
 	Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGBA, GL_UNSIGNED_BYTE);
 	Shrek.texUnit(shaderProgram, "tex1", 1);
 	
 	Texture Brick("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	Brick.texUnit(shaderProgram, "tex0", 0);
 
-	//variables to help in rotating the pyramid
-	float rotation = 0.0f;
-	double prevTime = glfwGetTime();
-
 	glEnable(GL_DEPTH_TEST);
+
+	Camera camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0f, 0.3f, 2.0f));
 
 	//very simple render loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// input
-		//processInput(window);
+		processInput(window);
 		// render
 		// clear the color buffer
 
@@ -139,35 +134,8 @@ int main() {
 		// tell openGl what shader program we want to use
 		shaderProgram.Activate();
 
-		//timer
-		double crntTime = glfwGetTime();
-		if (crntTime - prevTime >= 1/60)
-		{
-			rotation += 0.05f;
-			prevTime = crntTime;
-		}
-
-		glm::mat4 model = glm::mat4(1.0f);
-		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 proj = glm::mat4(1.0f);
-
-		//spin the triangle!!!
-		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-
-		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
-		proj = glm::perspective(glm::radians(45.0f), (float)(SCR_WIDTH / SCR_HEIGHT), 0.1f, 100.0f);
-
-		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-		int viewLoc = glGetUniformLocation(shaderProgram.ID, "view");
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
-		int projLoc = glGetUniformLocation(shaderProgram.ID, "proj");
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
-
-		//assigns a value to the uniform; NOTE: must always be done after activating the Shader
-		glUniform1f(uniID, 0.5f);
+		camera.Inputs(window);
+		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
 
 		//binds texture so that it appears in rendering
 		//Shrek.Bind();
