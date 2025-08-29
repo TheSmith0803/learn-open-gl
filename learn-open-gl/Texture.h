@@ -13,9 +13,13 @@ public:
 	GLenum type;
 	Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType);
 
-	void texUnit(Shader shader, const char* uniform, GLuint unit);
+	//assigns a texture unit to a texture
+	void texUnit(Shader& shader, const char* uniform, GLuint unit);
+	//binds a texture
 	void Bind();
+	//unbinds a texture
 	void Unbind();
+	//deletes a texture
 	void Delete();
 };
 #endif 
