@@ -117,6 +117,7 @@ int main() {
 	Texture Brick("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	Brick.texUnit(shaderProgram, "tex0", 0);
 
+	//variables to help in rotating the pyramid
 	float rotation = 0.0f;
 	double prevTime = glfwGetTime();
 
@@ -138,6 +139,7 @@ int main() {
 		// tell openGl what shader program we want to use
 		shaderProgram.Activate();
 
+		//timer
 		double crntTime = glfwGetTime();
 		if (crntTime - prevTime >= 1/60)
 		{
