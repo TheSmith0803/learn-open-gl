@@ -27,6 +27,84 @@ std::string readTextFile(const std::string& filePath);
 const unsigned int SCR_WIDTH = 600;
 const unsigned int SCR_HEIGHT = 600;
 
+// Vertices coordinates
+GLfloat vertices[] =
+{//     COORDINATES     /        COLORS      /   TexCoord  //
+
+	-0.5f, 0.0f,  0.5f,     0.2f, 0.70f, 0.44f,	0.0f, 0.0f,
+	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	2.5f, 5.0,
+
+};
+
+// Indices for vertices order
+GLuint indices[] =
+{
+	0, 1, 2,
+	0, 2, 3,
+	0, 1, 4,
+	1, 2, 4,
+	2, 3, 4,
+	3, 0, 4,
+};
+
+GLfloat lightVertices[] = 
+{
+	// Front face (z = 0.1)
+	-0.1f, -0.1f,  0.1f,    0.0f, 0.0f,  // bottom-left
+	 0.1f, -0.1f,  0.1f,    1.0f, 0.0f,  // bottom-right
+	 0.1f,  0.1f,  0.1f,    1.0f, 1.0f,  // top-right
+	-0.1f,  0.1f,  0.1f,    0.0f, 1.0f,  // top-left
+
+	// Back face (z = -0.1)
+	-0.1f, -0.1f, -0.1f,    1.0f, 0.0f,  // bottom-left (flipped)
+	-0.1f,  0.1f, -0.1f,    1.0f, 1.0f,  // top-left (flipped)
+	 0.1f,  0.1f, -0.1f,    0.0f, 1.0f,  // top-right (flipped)
+	 0.1f, -0.1f, -0.1f,    0.0f, 0.0f,  // bottom-right (flipped)
+
+	 // Left face (x = -0.1)
+	 -0.1f, -0.1f, -0.1f,    0.0f, 0.0f,
+	 -0.1f, -0.1f,  0.1f,    1.0f, 0.0f,
+	 -0.1f,  0.1f,  0.1f,    1.0f, 1.0f,
+	 -0.1f,  0.1f, -0.1f,    0.0f, 1.0f,
+
+	 // Right face (x = 0.1)
+	  0.1f, -0.1f,  0.1f,    0.0f, 0.0f,
+	  0.1f, -0.1f, -0.1f,    1.0f, 0.0f,
+	  0.1f,  0.1f, -0.1f,    1.0f, 1.0f,
+	  0.1f,  0.1f,  0.1f,    0.0f, 1.0f,
+
+	  // Top face (y = 0.1)
+	  -0.1f,  0.1f,  0.1f,    0.0f, 0.0f,
+	   0.1f,  0.1f,  0.1f,    1.0f, 0.0f,
+	   0.1f,  0.1f, -0.1f,    1.0f, 1.0f,
+	  -0.1f,  0.1f, -0.1f,    0.0f, 1.0f,
+
+	  // Bottom face (y = -0.1)
+	  -0.1f, -0.1f, -0.1f,    0.0f, 0.0f,
+	   0.1f, -0.1f, -0.1f,    1.0f, 0.0f,
+	   0.1f, -0.1f,  0.1f,    1.0f, 1.0f,
+	  -0.1f, -0.1f,  0.1f,    0.0f, 1.0f,
+};
+
+GLuint lightIndices[] = 
+{
+	// Front face
+	0, 1, 2,   2, 3, 0,
+	// Back face
+	4, 5, 6,   6, 7, 4,
+	// Left face
+	8, 9, 10,  10, 11, 8,
+	// Right face
+	12, 13, 14, 14, 15, 12,
+	// Top face
+	16, 17, 18, 18, 19, 16,
+	// Bottom face
+	20, 21, 22, 22, 23, 20
+};
+
 int main() {
 
 
@@ -66,31 +144,11 @@ int main() {
 		return -1;
 	}
 
-	// Vertices coordinates
-	GLfloat vertices[] =
-	{//     COORDINATES     /        COLORS      /   TexCoord  //
-		
-		-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
-		-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
-		 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
-		 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
-		 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	2.5f, 5.0,
 
-	};
 
-	// Indices for vertices order
-	GLuint indices[] =
-	{
-		0, 1, 2,
-		0, 2, 3,
-		0, 1, 4,
-		1, 2, 4,
-		2, 3, 4,
-		3, 0, 4,
-	};
 
 	// define shaders
-	Shader shaderProgram("shader.vert", "shader.frag");
+	Shader pyramidShader("shader.vert", "shader.frag");
 
 	VAO VAO1;
 	VAO1.Bind();
@@ -99,20 +157,67 @@ int main() {
 	VBO VBO1(vertices, sizeof(vertices));
 	EBO EBO1(indices, sizeof(indices));
 
+	//for the vertices
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+	//VAO to link the brick texture
+	//VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
 	// Unbind all to prevent accidentally modifying them
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
 
+
+
+
+	//LINK LIGHT SHADERS
+	Shader lightShader("light.vert", "light.frag");
+
+	VAO lightVAO;
+	lightVAO.Bind();
+
+	VBO lightVBO(lightVertices, sizeof(lightVertices));
+	EBO lightEBO(lightIndices, sizeof(lightIndices));
+
+	//for the vertices and shape
+	lightVAO.LinkAttrib(lightVBO, 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0);
+
+	//for shrek texture linking and displaying
+	lightVAO.LinkAttrib(lightVBO, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+
+	lightVAO.Unbind();
+	lightVBO.Unbind();
+	lightEBO.Unbind();
+
+
+
+
+
+
+	glm::vec4 lighColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	glm::vec3 lightPos = glm::vec3(0.0f, 0.9f, 0.0f);
+	glm::mat4 lightModel = glm::mat4(1.0f);
+	lightModel = glm::translate(lightModel, lightPos);
+
+	glm::vec3 pyramidPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::mat4 pyramidModel = glm::mat4(1.0f);
+	pyramidModel = glm::translate(pyramidModel, pyramidPos);
+
+	lightShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+
+	pyramidShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(pyramidShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
+
 	// Texture
-	Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGBA, GL_UNSIGNED_BYTE);
-	Shrek.texUnit(shaderProgram, "tex1", 1);
+	Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Shrek.texUnit(lightShader, "lightTex", 0);
 	
 	Texture Brick("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-	Brick.texUnit(shaderProgram, "tex0", 0);
+	Brick.texUnit(pyramidShader, "tex0", 0);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -123,27 +228,31 @@ int main() {
 	{
 		// input
 		processInput(window);
-		// render
-		// clear the color buffer
-
 		//specify color of background
 		glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
 		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// tell openGl what shader program we want to use
-		shaderProgram.Activate();
+		
 
 		camera.Inputs(window);
-		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
+		// tell openGl what shader program we want to use
+		pyramidShader.Activate();
+		camera.Matrix(pyramidShader, "camMatrix");
 		//binds texture so that it appears in rendering
-		//Shrek.Bind();
 		Brick.Bind();
 		//bind the VAO so opengl knows how to use it
 		VAO1.Bind();
 
-		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(GLuint), GL_UNSIGNED_INT, 0);
+
+		lightShader.Activate();
+		camera.Matrix(lightShader, "camMatrix");
+		Shrek.Bind();
+		lightVAO.Bind();
+		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
@@ -155,7 +264,7 @@ int main() {
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
-	shaderProgram.Delete();
+	pyramidShader.Delete();
 	Shrek.Delete();
 	Brick.Delete();
 
