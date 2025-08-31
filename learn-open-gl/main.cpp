@@ -30,13 +30,13 @@ const unsigned int SCR_HEIGHT = 600;
 
 // Vertices coordinates
 GLfloat vertices[] =
-{//     COORDINATES     /        COLORS      /   TexCoord  //
+{//     COORDINATES     /        COLORS             /   TexCoord  //
 
-	-0.5f, 0.0f,  0.5f,     0.2f, 0.70f, 0.44f,	    0.0f, 0.0f,
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
-	 0.0f, 0.8f,  0.0f,     0.0f, 0.2f, 0.0f,	    2.5f, 5.0,
+	-0.5f, 0.0f,  0.5f,     0.2f,  0.70f, 0.44f,	  0.0f, 0.0f,
+	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	  5.0f, 0.0f,
+	 0.5f, 0.0f, -0.5f,     1.0f,  0.0f,  0.0f,	      0.0f, 0.0f,
+	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	  5.0f, 0.0f,
+	 0.0f, 0.8f,  0.0f,     0.0f,  0.2f,  0.0f,	      2.5f, 5.0,
 
 };
 
@@ -54,16 +54,16 @@ GLuint indices[] =
 GLfloat lightVertices[] = 
 {
 	// Front face (z = 0.1)
-	-0.1f, -0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMin,  // bottom-left
-	 0.1f, -0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMin,
-	 0.1f,  0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMax,
-	-0.1f,  0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMax,
+	-0.1f, -0.1f,  0.1f,      // bottom-left
+	 0.1f, -0.1f,  0.1f,    
+	 0.1f,  0.1f,  0.1f,    
+	-0.1f,  0.1f,  0.1f,    
 
 	// Back face (z = -0.1)
-	-0.1f, -0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMin,
-	-0.1f,  0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMin,
-	 0.1f,  0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMax,
-	 0.1f, -0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMax,
+	-0.1f, -0.1f, -0.1f,    
+	-0.1f,  0.1f, -0.1f,    
+	 0.1f,  0.1f, -0.1f,    
+	 0.1f, -0.1f, -0.1f,    
 
 	 // Left face (x = -0.1)
 	 -0.1f, -0.1f, -0.1f,    0.0f, 0.0f,
@@ -161,6 +161,7 @@ int main() {
 	//for the vertices
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
 
+	//for a stagnant color
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 
 	//VAO to link the brick texture
@@ -170,8 +171,6 @@ int main() {
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
-
-
 
 
 	//LINK LIGHT SHADERS
@@ -214,12 +213,13 @@ int main() {
 	glUniformMatrix4fv(glGetUniformLocation(pyramidShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
 
 	// Texture
-	//Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	//Shrek.texUnit(lightShader, "lightTex", 0);
+	Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Shrek.texUnit(lightShader, "lightTex", 0);
 	
 	Texture Brick("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	Brick.texUnit(pyramidShader, "tex0", 0);
 
+	//Figure out how to do a texture atlas lmao
 	Texture Atlas("Atlas.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	Atlas.texUnit(lightShader, "lightTex", 0);
 
@@ -246,7 +246,7 @@ int main() {
 		pyramidShader.Activate();
 		camera.Matrix(pyramidShader, "camMatrix");
 		//binds texture so that it appears in rendering
-		Brick.Bind();
+		//Brick.Bind();
 		//bind the VAO so opengl knows how to use it
 		VAO1.Bind();
 
@@ -254,8 +254,8 @@ int main() {
 
 		lightShader.Activate();
 		camera.Matrix(lightShader, "camMatrix");
-		Atlas.Bind();
-		//Shrek.Bind();
+		//Atlas.Bind();
+		Shrek.Bind();
 		lightVAO.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 
