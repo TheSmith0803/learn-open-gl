@@ -15,6 +15,7 @@
 #include"EBO.h"
 #include"VAO.h"
 #include"Camera.h"
+#include"BlockUVs.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -31,11 +32,11 @@ const unsigned int SCR_HEIGHT = 600;
 GLfloat vertices[] =
 {//     COORDINATES     /        COLORS      /   TexCoord  //
 
-	-0.5f, 0.0f,  0.5f,     0.2f, 0.70f, 0.44f,	0.0f, 0.0f,
+	-0.5f, 0.0f,  0.5f,     0.2f, 0.70f, 0.44f,	    0.0f, 0.0f,
 	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
 	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
 	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	2.5f, 5.0,
+	 0.0f, 0.8f,  0.0f,     0.0f, 0.2f, 0.0f,	    2.5f, 5.0,
 
 };
 
@@ -53,16 +54,16 @@ GLuint indices[] =
 GLfloat lightVertices[] = 
 {
 	// Front face (z = 0.1)
-	-0.1f, -0.1f,  0.1f,    0.0f, 0.0f,  // bottom-left
-	 0.1f, -0.1f,  0.1f,    1.0f, 0.0f,  // bottom-right
-	 0.1f,  0.1f,  0.1f,    1.0f, 1.0f,  // top-right
-	-0.1f,  0.1f,  0.1f,    0.0f, 1.0f,  // top-left
+	-0.1f, -0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMin,  // bottom-left
+	 0.1f, -0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMin,
+	 0.1f,  0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMax,
+	-0.1f,  0.1f,  0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMax,
 
 	// Back face (z = -0.1)
-	-0.1f, -0.1f, -0.1f,    1.0f, 0.0f,  // bottom-left (flipped)
-	-0.1f,  0.1f, -0.1f,    1.0f, 1.0f,  // top-left (flipped)
-	 0.1f,  0.1f, -0.1f,    0.0f, 1.0f,  // top-right (flipped)
-	 0.1f, -0.1f, -0.1f,    0.0f, 0.0f,  // bottom-right (flipped)
+	-0.1f, -0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMin,
+	-0.1f,  0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMin,
+	 0.1f,  0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMax, BlockUVs::GRASS_SIDE.vMax,
+	 0.1f, -0.1f, -0.1f,    BlockUVs::GRASS_SIDE.uMin, BlockUVs::GRASS_SIDE.vMax,
 
 	 // Left face (x = -0.1)
 	 -0.1f, -0.1f, -0.1f,    0.0f, 0.0f,
@@ -213,11 +214,14 @@ int main() {
 	glUniformMatrix4fv(glGetUniformLocation(pyramidShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
 
 	// Texture
-	Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	Shrek.texUnit(lightShader, "lightTex", 0);
+	//Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	//Shrek.texUnit(lightShader, "lightTex", 0);
 	
 	Texture Brick("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 	Brick.texUnit(pyramidShader, "tex0", 0);
+
+	Texture Atlas("Atlas.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+	Atlas.texUnit(lightShader, "lightTex", 0);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -250,7 +254,8 @@ int main() {
 
 		lightShader.Activate();
 		camera.Matrix(lightShader, "camMatrix");
-		Shrek.Bind();
+		Atlas.Bind();
+		//Shrek.Bind();
 		lightVAO.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 
@@ -265,7 +270,7 @@ int main() {
 	VBO1.Delete();
 	EBO1.Delete();
 	pyramidShader.Delete();
-	Shrek.Delete();
+	Atlas.Delete();
 	Brick.Delete();
 
 	

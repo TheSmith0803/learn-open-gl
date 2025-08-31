@@ -51,6 +51,9 @@
     <ClCompile Include="lightBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BlockUVs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -89,12 +92,18 @@
     <ClInclude Include="lightBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlockUVs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="..\..\..\Users\ESmith\Downloads\shrek.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\blocks\Atlas\Atlas.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>
