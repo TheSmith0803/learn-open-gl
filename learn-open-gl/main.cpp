@@ -261,6 +261,7 @@ int main() {
 
 		// tell openGl what shader program we want to use
 		pyramidShader.Activate();
+		glUniform3f(glGetUniformLocation(pyramidShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 
 		camera.Matrix(pyramidShader, "camMatrix");
 
