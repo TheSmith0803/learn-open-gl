@@ -54,16 +54,16 @@ GLuint indices[] =
 GLfloat lightVertices[] = 
 {
 	// Front face (z = 0.1)
-	-0.1f, -0.1f,  0.1f,      // bottom-left
-	 0.1f, -0.1f,  0.1f,    
-	 0.1f,  0.1f,  0.1f,    
-	-0.1f,  0.1f,  0.1f,    
+	-0.1f, -0.1f,  0.1f,       0.0f, 0.0f,// bottom-left
+	 0.1f, -0.1f,  0.1f,      1.0f, 0.0f
+	 0.1f,  0.1f,  0.1f,     1.0f, 1.0f,
+	-0.1f,  0.1f,  0.1f,     0.0f, 1.0f,
 
 	// Back face (z = -0.1)
-	-0.1f, -0.1f, -0.1f,    
-	-0.1f,  0.1f, -0.1f,    
-	 0.1f,  0.1f, -0.1f,    
-	 0.1f, -0.1f, -0.1f,    
+	-0.1f, -0.1f, -0.1f,     0.0f, 0.0f,
+	-0.1f,  0.1f, -0.1f,     1.0f, 0.0f,
+	 0.1f,  0.1f, -0.1f,     1.0f, 1.0f,
+	 0.1f, -0.1f, -0.1f,    0.0f, 1.0f,
 
 	 // Left face (x = -0.1)
 	 -0.1f, -0.1f, -0.1f,    0.0f, 0.0f,
@@ -270,6 +270,7 @@ int main() {
 	VBO1.Delete();
 	EBO1.Delete();
 	pyramidShader.Delete();
+	lightShader.Delete();
 	Atlas.Delete();
 	Brick.Delete();
 
