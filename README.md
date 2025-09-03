@@ -322,9 +322,9 @@ so we pass our data via glUniform4f
 
 But I have been following learn opengl through a series of videos on youtube
 
-These specifically: [https://www.youtube.com/@VictorGordan][By Victor Gordon]
+These specifically: [By Victor Gordon](https://www.youtube.com/@VictorGordan)
 
-He has really a really intuitive way of explaining things, and I needed a break from just reading [https://learnopengl.com/][this]
+He has really a really intuitive way of explaining things, and I needed a break from just reading [this](https://learnopengl.com/)
 
 But hey look, I made minecraft: 
 
