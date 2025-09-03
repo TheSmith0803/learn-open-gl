@@ -318,5 +318,15 @@ Whenever you want to configure an option of OpenGL simply pick the overloaded fu
 with your type. In our case we want to set 4 floats of the uniform individually
 so we pass our data via glUniform4f
 
+# So I kinda went a little off the rails here lol
 
+But I have been following learn opengl through a series of videos on youtube
+
+These specifically: [https://www.youtube.com/@VictorGordan][By Victor Gordon]
+
+He has really a really intuitive way of explaining things, and I needed a break from just reading [https://learnopengl.com/][this]
+
+But hey look, I made minecraft: 
+
+![minecraft](minecraft-screenshot-lol.png)
 
