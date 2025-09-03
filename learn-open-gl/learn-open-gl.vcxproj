@@ -163,6 +163,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Users\ESmith\Downloads\shrek.png" />
+    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor-specular.png" />
+    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor.png" />
     <Image Include="..\blocks\Atlas\Atlas.png" />
     <Image Include="brick.png" />
   </ItemGroup>

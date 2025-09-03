@@ -5,8 +5,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <fstream>
-#include <sstream>
 
 
 #include"shaderClass.h"
@@ -31,75 +29,54 @@ const unsigned int SCR_HEIGHT = 1000;
 // Vertices coordinates
 GLfloat vertices[] =
 {//     COORDINATES     /        COLORS          /    TexCoord   /        NORMALS       //
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-
-	-0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-
-	 0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.8f, 0.5f,  0.0f, // Right side
-
-	 0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-	 0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f,  0.8f  // Facing side
-
+	-100.0f, 0.0f,  100.0f,        0.0f, 0.0f, 0.0f,      0.0f, 0.0f,      0.0f, 1.0f, 0.0f,
+	-100.0f, 0.0f, -100.0f,        0.0f, 0.0f, 0.0f,      0.0f, 100.0f,      0.0f, 1.0f, 0.0f,
+	 100.0f, 0.0f, -100.0f,        0.0f, 0.0f, 0.0f,      100.0f, 100.0f,      0.0f, 1.0f, 0.0f,
+	 100.0f, 0.0f,  100.0f,        0.0f, 0.0f, 0.0f,      100.0f, 0.0f,      0.0f, 1.0f, 0.0f,
 };
 
 // Indices for vertices order
 GLuint indices[] =
 {
-	0,  1,  2,
-	0,  2,  3,
-	4,  6,  5,
-	7,  9,  8,
-	10, 12, 11,
-	13, 15, 14,
+	0, 1, 2,
+	2, 0, 3,
 };
 
 GLfloat lightVertices[] = 
 {
 	// Front face (z = 0.1)
-	-0.1f, -0.1f,  0.1f,     0.0f, 0.0f,// bottom-left
-	 0.1f, -0.1f,  0.1f,     1.0f, 0.0f,
-	 0.1f,  0.1f,  0.1f,     1.0f, 1.0f,
-	-0.1f,  0.1f,  0.1f,     0.0f, 1.0f,
+	-0.1f, -0.1f,  0.1f,     0.0f, 0.3333f,// bottom-left
+	 0.1f, -0.1f,  0.1f,     1.0f, 0.3333f,
+	 0.1f,  0.1f,  0.1f,     1.0f, 0.6666f,
+	-0.1f,  0.1f,  0.1f,     0.0f, 0.6666f,
 
 	// Back face (z = -0.1)
-	-0.1f, -0.1f, -0.1f,     0.0f, 0.0f,
-	-0.1f,  0.1f, -0.1f,     1.0f, 0.0f,
-	 0.1f,  0.1f, -0.1f,     1.0f, 1.0f,
-	 0.1f, -0.1f, -0.1f,     0.0f, 1.0f,
+	-0.1f, -0.1f, -0.1f,     0.0f, 0.3333f,
+	 0.1f,  -0.1f, -0.1f,     1.0f, 0.3333f,
+	 0.1f,  0.1f, -0.1f,     1.0f, 0.6666f,
+	-0.1f, 0.1f, -0.1f,     0.0f, 0.6666f,
 
 	 // Left face (x = -0.1)
-	 -0.1f, -0.1f, -0.1f,    0.0f, 0.0f,
-	 -0.1f, -0.1f,  0.1f,    1.0f, 0.0f,
-	 -0.1f,  0.1f,  0.1f,    1.0f, 1.0f,
-	 -0.1f,  0.1f, -0.1f,    0.0f, 1.0f,
+	 -0.1f, -0.1f, -0.1f,    0.0f, 0.3333f,
+	 -0.1f, -0.1f,  0.1f,    1.0f, 0.3333f,
+	 -0.1f,  0.1f,  0.1f,    1.0f, 0.6666f,
+	 -0.1f,  0.1f, -0.1f,    0.0f, 0.6666f,
 
 	 // Right face (x = 0.1)
-	  0.1f, -0.1f,  0.1f,    0.0f, 0.0f,
-	  0.1f, -0.1f, -0.1f,    1.0f, 0.0f,
-	  0.1f,  0.1f, -0.1f,    1.0f, 1.0f,
-	  0.1f,  0.1f,  0.1f,    0.0f, 1.0f,
+	  0.1f, -0.1f,  0.1f,    0.0f, 0.3333f,
+	  0.1f, -0.1f, -0.1f,    1.0f, 0.3333f,
+	  0.1f,  0.1f, -0.1f,    1.0f, 0.6666f,
+	  0.1f,  0.1f,  0.1f,    0.0f, 0.6666f,
 
 	  // Top face (y = 0.1)
 	  -0.1f,  0.1f,  0.1f,    0.0f, 0.0f,
 	   0.1f,  0.1f,  0.1f,    1.0f, 0.0f,
-	   0.1f,  0.1f, -0.1f,    1.0f, 1.0f,
-	  -0.1f,  0.1f, -0.1f,    0.0f, 1.0f,
+	   0.1f,  0.1f, -0.1f,    1.0f, 0.3333f,
+	  -0.1f,  0.1f, -0.1f,    0.0f, 0.3333f,
 
 	  // Bottom face (y = -0.1)
-	  -0.1f, -0.1f, -0.1f,    0.0f, 0.0f,
-	   0.1f, -0.1f, -0.1f,    1.0f, 0.0f,
+	  -0.1f, -0.1f, -0.1f,    0.0f, 0.6666f,
+	   0.1f, -0.1f, -0.1f,    1.0f, 0.6666f,
 	   0.1f, -0.1f,  0.1f,    1.0f, 1.0f,
 	  -0.1f, -0.1f,  0.1f,    0.0f, 1.0f,
 };
@@ -165,25 +142,25 @@ int main() {
 	// define shaders
 	Shader pyramidShader("shader.vert", "shader.frag");
 
-	VAO VAO1;
-	VAO1.Bind();
+	VAO floorVAO;
+	floorVAO.Bind();
 
 	// generates vertex buffer object and links it to vertices
 	VBO VBO1(vertices, sizeof(vertices));
 	EBO EBO1(indices, sizeof(indices));
 
 	//for the vertices
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
+	floorVAO.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11 * sizeof(float), (void*)0);
 
 	//for a stagnant color
-	//VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	//floorVAO.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 
 	//VAO to link the brick texture
-	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
+	floorVAO.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11 * sizeof(float), (void*)(6 * sizeof(float)));
+	floorVAO.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11 * sizeof(float), (void*)(8 * sizeof(float)));
 
 	// Unbind all to prevent accidentally modifying them
-	VAO1.Unbind();
+	floorVAO.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
 
@@ -209,9 +186,7 @@ int main() {
 
 
 	//color for the light coming from shrek
-	glm::vec4 lightColor = glm::vec4(1.0f, 0.8f, 0.8f, 1.0f);
-
-
+	glm::vec4 lightColor = glm::vec4(0.5f, 0.5f, 1.0f, 1.0f);
 
 	glm::vec4 lighColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(1.0f, 0.8f, 0.5f);
@@ -230,16 +205,22 @@ int main() {
 	glUniformMatrix4fv(glGetUniformLocation(pyramidShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
 	glUniform4f(glGetUniformLocation(pyramidShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(pyramidShader.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+
+
+
 	// Texture
 	//Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	//Shrek.texUnit(lightShader, "lightTex", 0);
 	
-	Texture Brick("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-	Brick.texUnit(pyramidShader, "tex0", 0);
+	Texture woodFloor("wood-floor.png", GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE);
+	woodFloor.texUnit(pyramidShader, "tex0", 0);
+	Texture woodSpec("wood-floor-specular.png", GL_TEXTURE_2D, 1, GL_RGBA, GL_UNSIGNED_BYTE);
+	woodSpec.texUnit(pyramidShader, "tex1", 1);
+
 
 	//Figure out how to do a texture atlas lmao
-	Texture Atlas("Atlas.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-	Atlas.texUnit(lightShader, "lightTex", 0);
+	Texture Atlas("Atlas.png", GL_TEXTURE_2D, 2, GL_RGBA, GL_UNSIGNED_BYTE);
+	Atlas.texUnit(lightShader, "lightTex", 2);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -258,26 +239,42 @@ int main() {
 		camera.Inputs(window);
 		
 		camera.updateMatrix(80.0f, 0.1f, 100.0f);
-
-		// tell openGl what shader program we want to use
-		pyramidShader.Activate();
 		glUniform3f(glGetUniformLocation(pyramidShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 
+		/*PYRAMID SHADER*/
+
+		// tell openGl what shader program we want to use
+		
+		pyramidShader.Activate();
 		camera.Matrix(pyramidShader, "camMatrix");
 
 		//binds texture so that it appears in rendering
-		Brick.Bind();
+		woodFloor.Bind();
+		woodSpec.Bind();
 		//bind the VAO so opengl knows how to use it
-		VAO1.Bind();
+		floorVAO.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		
 
+
+		/*LIGHT BLOCK SHADER*/
+
+		
 		lightShader.Activate();
 		camera.Matrix(lightShader, "camMatrix");
-		//Atlas.Bind();
+		
+		Atlas.Bind();
+
 		//Shrek.Bind();
 		lightVAO.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+
+
+
+
+
+		 /*POLL EVENTS AND STUFF*/
+
 
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
@@ -286,13 +283,14 @@ int main() {
 
 	//optional: de-allocate all resources once they've outlived their purpose:
 	// ----------------------------------------------------------------------
-	VAO1.Delete();
+	floorVAO.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
 	pyramidShader.Delete();
 	lightShader.Delete();
 	Atlas.Delete();
-	Brick.Delete();
+	woodFloor.Delete();
+	woodSpec.Delete();
 
 	
 	glfwDestroyWindow(window);

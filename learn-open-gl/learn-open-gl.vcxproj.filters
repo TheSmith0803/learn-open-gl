@@ -106,5 +106,11 @@
     <Image Include="..\blocks\Atlas\Atlas.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor-specular.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
