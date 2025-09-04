@@ -239,13 +239,15 @@ int main() {
 		camera.Inputs(window);
 		
 		camera.updateMatrix(80.0f, 0.1f, 100.0f);
+		pyramidShader.Activate();
+
 		glUniform3f(glGetUniformLocation(pyramidShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 
 		/*PYRAMID SHADER*/
 
 		// tell openGl what shader program we want to use
 		
-		pyramidShader.Activate();
+		
 		camera.Matrix(pyramidShader, "camMatrix");
 
 		//binds texture so that it appears in rendering
