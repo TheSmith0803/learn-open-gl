@@ -23,8 +23,8 @@ convert to c string using c_str() method after
 std::string readTextFile(const std::string& filePath);
 */
 
-const unsigned int SCR_WIDTH = 1000;
-const unsigned int SCR_HEIGHT = 1000;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
 // Vertices coordinates
 GLfloat vertices[] =
@@ -184,12 +184,10 @@ int main() {
 	lightVBO.Unbind();
 	lightEBO.Unbind();
 
-
 	//color for the light coming from shrek
-	glm::vec4 lightColor = glm::vec4(0.5f, 0.5f, 1.0f, 1.0f);
+	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	glm::vec4 lighColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec3 lightPos = glm::vec3(1.0f, 0.8f, 0.5f);
+	glm::vec3 lightPos = glm::vec3(10.0f, 0.8f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
@@ -232,15 +230,20 @@ int main() {
 	{
 		// input
 		processInput(window);
+		float crntTime = glfwGetTime();
 		//specify color of background
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		camera.Inputs(window);
-		
-		camera.updateMatrix(80.0f, 0.1f, 100.0f);
-		pyramidShader.Activate();
+		camera.updateMatrix(80.0f, 0.1f, 200.0f);
 
+		glm::vec3 lightPos = glm::vec3(10.0f * sin(crntTime), 0.8f, 0.5f);
+		glm::mat4 lightModel = glm::mat4(1.0f);
+		lightModel = glm::translate(lightModel, lightPos);
+
+		pyramidShader.Activate();
+		
 		glUniform3f(glGetUniformLocation(pyramidShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 
 		/*PYRAMID SHADER*/
@@ -260,13 +263,16 @@ int main() {
 
 
 		/*LIGHT BLOCK SHADER*/
-
+		//for translating over time (animation!!)
+		
 		
 		lightShader.Activate();
 		camera.Matrix(lightShader, "camMatrix");
-		
-		Atlas.Bind();
+		glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+		glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 
+		Atlas.Bind();
+		
 		//Shrek.Bind();
 		lightVAO.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
