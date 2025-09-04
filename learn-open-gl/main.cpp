@@ -187,7 +187,7 @@ int main() {
 	//color for the light coming from shrek
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
-	glm::vec3 lightPos = glm::vec3(10.0f, 0.8f, 0.5f);
+	glm::vec3 lightPos = glm::vec3(0.0f, 0.8f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
@@ -230,7 +230,7 @@ int main() {
 	{
 		// input
 		processInput(window);
-		float crntTime = glfwGetTime();
+		
 		//specify color of background
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		//clear the back buffer and assign the new color to it
@@ -238,12 +238,21 @@ int main() {
 		camera.Inputs(window);
 		camera.updateMatrix(80.0f, 0.1f, 200.0f);
 
-		glm::vec3 lightPos = glm::vec3(10.0f * sin(crntTime), 0.8f, 0.5f);
+		//for translating over time (animation!!)
+		float crntTime = glfwGetTime();
+		//to make it a circle
+		float radius = 10.0f;
+		
+
+		glm::vec3 lightPos = glm::vec3(radius * sin(crntTime), 0.8f, radius * cos(crntTime));
 		glm::mat4 lightModel = glm::mat4(1.0f);
 		lightModel = glm::translate(lightModel, lightPos);
 
+		float spin = 150.0f;
+		lightModel = glm::rotate(lightModel, glm::radians(spin * crntTime), glm::vec3(1.0f, 1.0f, 1.0f));
+
 		pyramidShader.Activate();
-		
+		glUniform3f(glGetUniformLocation(pyramidShader.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(glGetUniformLocation(pyramidShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 
 		/*PYRAMID SHADER*/
@@ -263,13 +272,14 @@ int main() {
 
 
 		/*LIGHT BLOCK SHADER*/
-		//for translating over time (animation!!)
 		
 		
 		lightShader.Activate();
-		camera.Matrix(lightShader, "camMatrix");
+		
 		glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
 		glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+		
+		camera.Matrix(lightShader, "camMatrix");
 
 		Atlas.Bind();
 		
