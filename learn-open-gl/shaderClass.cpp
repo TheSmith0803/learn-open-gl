@@ -13,6 +13,7 @@ std::string get_file_contents(const char* filename)
 		in.close();
 		return(contents);
 	}
+	std::cout << "ERROR? Make sure you typed the shader file namer correctly..." << std::endl;
 	throw(errno);
 }
 

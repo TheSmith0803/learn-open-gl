@@ -54,13 +54,16 @@
     <ClCompile Include="BlockUVs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="shader.vert">
+    <None Include="default.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="shader.frag">
+    <None Include="default.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="light.vert">
@@ -95,6 +98,9 @@
     <ClInclude Include="BlockUVs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="brick.png">
@@ -106,10 +112,16 @@
     <Image Include="..\blocks\Atlas\Atlas.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor.png">
+    <Image Include="wood-floor-specular.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor-specular.png">
+    <Image Include="wood-floor.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="wood-floor-specular.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="wood-floor.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

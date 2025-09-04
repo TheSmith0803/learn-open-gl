@@ -138,6 +138,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="lightBlock.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="shaderClass.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -147,8 +148,8 @@
   <ItemGroup>
     <None Include="light.frag" />
     <None Include="light.vert" />
-    <None Include="shader.frag" />
-    <None Include="shader.vert" />
+    <None Include="default.frag" />
+    <None Include="default.vert" />
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="lightBlock.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="shaderClass.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
@@ -163,10 +165,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Users\ESmith\Downloads\shrek.png" />
-    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor-specular.png" />
-    <Image Include="..\..\..\Users\Sienna\Downloads\wood-floor.png" />
     <Image Include="..\blocks\Atlas\Atlas.png" />
     <Image Include="brick.png" />
+    <Image Include="wood-floor-specular.jpg" />
+    <Image Include="wood-floor-specular.png" />
+    <Image Include="wood-floor.jpg" />
+    <Image Include="wood-floor.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
