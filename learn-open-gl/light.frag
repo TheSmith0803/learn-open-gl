@@ -5,10 +5,10 @@ in vec2 texCoordLight;
 
 
 uniform vec4 lightColor;
-uniform sampler2D lightTex;
+uniform sampler2D diffuse0;
 
 void main()
 {
 	//FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	FragColor = texture(lightTex, texCoordLight);
+	FragColor = texture(diffuse0, texCoordLight);
 }

@@ -143,7 +143,10 @@ int main() {
 	Texture textures[] = {
 		Texture("wood-floor.jpg", "diffuse", 0, GL_RGB, GL_UNSIGNED_BYTE),
 		Texture("wood-floor-specular.jpg", "specular", 1, GL_RGB, GL_UNSIGNED_BYTE),
-		Texture("Atlas.png", "diffuse", 2, GL_RGBA, GL_UNSIGNED_BYTE),
+	};
+
+	Texture blockTexture[] {
+		Texture("Atlas.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
 	};
 
 
@@ -157,7 +160,7 @@ int main() {
 
 	std::vector <Vertex>  lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
 	std::vector <GLuint>  lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(GLuint));
-	std::vector <Texture> lightTex(textures, textures + sizeof(textures) / sizeof(Texture));
+	std::vector <Texture> lightTex(blockTexture, blockTexture + sizeof(blockTexture) / sizeof(Texture));
 	Mesh block(lightVerts, lightInd, lightTex);
 
 
@@ -223,7 +226,7 @@ int main() {
 
 		
 
-		glm::vec3 lightPos = glm::vec3(radius * sin(crntTime), 0.5f, radius * cos(crntTime));
+		glm::vec3 lightPos = glm::vec3(radius * sin(crntTime), 5.0f * cos(crntTime) + 6.0f, radius * cos(crntTime));
 		glm::mat4 lightModel = glm::mat4(1.0f);
 		lightModel = glm::translate(lightModel, lightPos);
 		float distance = lightPos.y - pyramidPos.y;
@@ -231,12 +234,15 @@ int main() {
 		lightModel = glm::rotate(lightModel, glm::radians(spin * crntTime), glm::vec3(1.0f, 1.0f, 1.0f));
 
 		floor.Draw(pyramidShader, camera);
-		block.Draw(lightShader, camera);
-
-		
 		glUniform3f(glGetUniformLocation(pyramidShader.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(glGetUniformLocation(pyramidShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 		glUniform1f(glGetUniformLocation(pyramidShader.ID, "distan"), distance);
+
+		block.Draw(lightShader, camera);
+
+		glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+		glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+		
 		/*PYRAMID SHADER*/
 
 		// tell openGl what shader program we want to use
@@ -246,11 +252,6 @@ int main() {
 
 		/*LIGHT BLOCK SHADER*/
 		
-		
-		
-		
-		glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
-		glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 		
 	
 
