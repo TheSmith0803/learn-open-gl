@@ -21,12 +21,16 @@ out vec2 texCoord;
 uniform mat4 camMatrix;
 uniform mat4 model;
 
+uniform mat4 translation;
+uniform mat4 rotation;
+uniform mat4 scale;
+
 void main()
 {
-	crntPos = vec3(model * vec4(aPos, 1.0f));
+	crntPos = vec3(model * translation * -rotation * scale * vec4(aPos, 1.0f));
 	// assigns the colors from the vertex data to the "color"
 	color = aColor;
-	texCoord = aTex;
+	texCoord = mat2(0.0, -1.0, 1.0, 0.0) * aTex;
 	Normal = aNormal;
 
 	gl_Position = camMatrix * vec4(aPos, 1.0);

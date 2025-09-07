@@ -17,75 +17,49 @@
 #include"BlockUVs.h"
 */
 #include"Mesh.h"
+#include"Model.h"
 
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
-
-/*for reading text files(aka shaders)
-convert to c string using c_str() method after
-std::string readTextFile(const std::string& filePath);
-*/
-
-const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_HEIGHT = 1080;
-
-// Vertices coordinates
-Vertex vertices[] =
-{//     COORDINATES     /        COLORS          /    NORMALS   /        TexCoord         //
-	Vertex{glm::vec3(-100.0f, 0.0f,  100.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(-100.0f, 0.0f, -100.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(0.0f, 250.0f)},
-	Vertex{glm::vec3(100.0f, 0.0f, -100.0f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(250.0f, 250.0f)},
-	Vertex{glm::vec3(100.0f, 0.0f,  100.0f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(250.0f, 0.0f)},
-};
-
-// Indices for vertices order
-GLuint indices[] =
+Vertex lightVertices[] =
 {
-	0, 1, 2,
-	2, 0, 3,
+	// Front face (z = 0.1)
+Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.6666f)},
+
+// Back face (z = -0.1)
+Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f,  -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f,  0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(-0.1f, 0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
+
+// Left face (x = -0.1)									
+Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(0.0f, 0.6666f)},
+
+// Right face (x = 0.1)									
+Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(0.0f, 0.6666f)},
+
+// Top face (y = 0.1)										
+Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
+
+// Bottom face (y = -0.1)									
+Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
+Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 1.0f)},
+Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 1.0f)},
 };
 
-Vertex lightVertices[] = 
-{
-	           // Front face (z = 0.1)
-	Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.3333f)},
-	Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.3333f)},
-	Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.6666f)},
-	Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.6666f)},
-
-	           // Back face (z = -0.1)
-	Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
-	Vertex{glm::vec3(0.1f,  -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
-	Vertex{glm::vec3(0.1f,  0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
-	Vertex{glm::vec3(-0.1f, 0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
-																		
-	          // Left face (x = -0.1)									
-	Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(0.0f, 0.3333f)},
-	Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(1.0f, 0.3333f)},
-	Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(1.0f, 0.6666f)},
-	Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),   glm::vec2(0.0f, 0.6666f)},
-	 																	
-	           // Right face (x = 0.1)									
-	Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
-	Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
-	Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(1.0f, 0.6666f)},
-	Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),      glm::vec2(0.0f, 0.6666f)},
-	        															
-	          // Top face (y = 0.1)										
-	Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.0f)},
-	Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
-	Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2( 0.0f, 0.3333f)},
-	        															
-	          // Bottom face (y = -0.1)									
-	Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
-	Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
-	Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 1.0f)},
-	Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 1.0f)},
-};
-
-GLuint lightIndices[] = 
+GLuint lightIndices[] =
 {
 	// Front face
 	0, 1, 2,   2, 3, 0,
@@ -100,6 +74,17 @@ GLuint lightIndices[] =
 	// Bottom face
 	20, 21, 22, 22, 23, 20
 };
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void processInput(GLFWwindow* window);
+
+/*for reading text files(aka shaders)
+convert to c string using c_str() method after
+std::string readTextFile(const std::string& filePath);
+*/
+
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
 int main() {
 
@@ -140,68 +125,47 @@ int main() {
 		return -1;
 	}
 
-	Texture textures[] = {
-		Texture("wood-floor.jpg", "diffuse", 0, GL_RGB, GL_UNSIGNED_BYTE),
-		Texture("wood-floor-specular.jpg", "specular", 1, GL_RGB, GL_UNSIGNED_BYTE),
+	Texture blockTexture[]{
+		Texture("Atlas.png", "diffuse", 0)
 	};
 
-	Texture blockTexture[] {
-		Texture("Atlas.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
-	};
-
-
-	// define shaders
-	Shader pyramidShader("default.vert", "default.frag");
-
-	std::vector <Vertex>  verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	std::vector <GLuint>  ind(indices, indices + sizeof(indices) / sizeof(GLuint));
-	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-	Mesh floor(verts, ind, tex);
-
+	Shader shaderProgram("default.vert", "default.frag");
+	//LINK LIGHT SHADERS
+	Shader lightShader("light.vert", "light.frag");
+	
 	std::vector <Vertex>  lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
 	std::vector <GLuint>  lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(GLuint));
 	std::vector <Texture> lightTex(blockTexture, blockTexture + sizeof(blockTexture) / sizeof(Texture));
 	Mesh block(lightVerts, lightInd, lightTex);
 
-
-	//LINK LIGHT SHADERS
-	Shader lightShader("light.vert", "light.frag");
-
-	//color for the light coming from shrek
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-	glm::vec3 lightPos = glm::vec3(0.0f, 0.8f, 0.5f);
+	glm::vec3 lightPos = glm::vec3(0.0f, 0.8f, 50.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
-
-	glm::vec3 pyramidPos = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::mat4 pyramidModel = glm::mat4(1.0f);
-	pyramidModel = glm::translate(pyramidModel, pyramidPos);
+	
+	shaderProgram.Activate();
+	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
 	lightShader.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
 	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 
-	pyramidShader.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(pyramidShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
-	glUniform4f(glGetUniformLocation(pyramidShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-	glUniform3f(glGetUniformLocation(pyramidShader.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-
-
-
-	// Texture
-	//Texture Shrek("shrek.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	//Shrek.texUnit(lightShader, "lightTex", 0);
-	
-	
 
 
 	//Figure out how to do a texture atlas lmao
 
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 	Camera camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0f, 0.3f, 2.0f));
 
+	//Model sword("C:/Repos/learn-open-gl/Models/sword/sword.gltf");
+	//Model scroll("C:/Repos/learn-open-gl/Models/scroll/scroll.gltf");
+	//Model bunny("C:/Repos/learn-open-gl/Models/bunny/bunny.gltf");
+	Model ground("C:/Repos/learn-open-gl/Models/ground/ground.gltf");
+	Model trees("C:/Repos/learn-open-gl/Models/trees/scene.gltf");
+	//bunny.Translate(0.0f, 10.0f, 0.0f);
 
 	//very simple render loop
 	while (!glfwWindowShouldClose(window))
@@ -214,63 +178,19 @@ int main() {
 		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		camera.Inputs(window);
-		camera.updateMatrix(5.0f, 0.1f, 200.0f);
-
-
-
-		//ANIMATION STUFF ////  UNCOMMENT TO MAKE BLOCK MOVE
-		//for translating over time (animation!!)
-		float crntTime = glfwGetTime();
-		float distance = lightPos.y - pyramidPos.y;
-
-
-
-		
-		
-		//to make it a circle
-		float radius = 0.5f;
-
-		
-
-		glm::vec3 lightPos = glm::vec3(radius * sin(crntTime), 0.8f, radius * cos(crntTime));
-		glm::mat4 lightModel = glm::mat4(1.0f);
-		lightModel = glm::translate(lightModel, lightPos);
-		
-		float spin = 150.0f;
-		lightModel = glm::rotate(lightModel, glm::radians(spin * crntTime), glm::vec3(1.0f, 1.0f, 1.0f));
-
-		
-
-
-
-
-		floor.Draw(pyramidShader, camera);
-		glUniform3f(glGetUniformLocation(pyramidShader.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-		glUniform3f(glGetUniformLocation(pyramidShader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-		glUniform1f(glGetUniformLocation(pyramidShader.ID, "distan"), distance);
-
-		block.Draw(lightShader, camera);
-
-		glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
-		glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-		
-		/*PYRAMID SHADER*/
-
-		// tell openGl what shader program we want to use
-		
-		
-
-
-		/*LIGHT BLOCK SHADER*/
+		camera.updateMatrix(80.0f, 0.1f, 500.0f);
 		
 		
 	
-
-
-
-
+	
+		//sword.Draw(shaderProgram, camera);
+		//sword.Draw(shaderProgram, camera);
+		//scroll.Draw(shaderProgram, camera);
+		block.Draw(lightShader, camera, glm::mat4(1.0f), glm::vec3(0.0f, 8.0f, -2.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+		ground.Draw(shaderProgram, camera);
+		trees.Draw(shaderProgram, camera);
+		//bunny.Draw(shaderProgram, camera);
 		 /*POLL EVENTS AND STUFF*/
-
 
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
@@ -280,9 +200,8 @@ int main() {
 	//optional: de-allocate all resources once they've outlived their purpose:
 	// ----------------------------------------------------------------------
 	
-	pyramidShader.Delete();
+	shaderProgram.Delete();
 	lightShader.Delete();
-	
 
 	
 	glfwDestroyWindow(window);
