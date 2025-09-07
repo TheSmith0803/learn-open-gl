@@ -72,6 +72,15 @@ void Camera::Inputs(GLFWwindow* window)
 	{
 		Position += speed * -Up;
 	}
+	constexpr float rollSpeed = glm::radians(0.5f);
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		Up = normalize(glm::rotate(Up, -rollSpeed, Orientation));
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		Up = glm::normalize(glm::rotate(Up, rollSpeed, Orientation));
+	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
 		speed = 0.03f;
@@ -80,6 +89,8 @@ void Camera::Inputs(GLFWwindow* window)
 	{
 		speed = 0.01f;
 	}
+
+	
 
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{

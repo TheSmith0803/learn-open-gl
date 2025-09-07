@@ -214,24 +214,35 @@ int main() {
 		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		camera.Inputs(window);
-		camera.updateMatrix(80.0f, 0.1f, 200.0f);
+		camera.updateMatrix(5.0f, 0.1f, 200.0f);
 
 
 
 		//ANIMATION STUFF ////  UNCOMMENT TO MAKE BLOCK MOVE
 		//for translating over time (animation!!)
 		float crntTime = glfwGetTime();
+		float distance = lightPos.y - pyramidPos.y;
+
+
+
+		
+		
 		//to make it a circle
-		float radius = 2.0f;
+		float radius = 0.5f;
 
 		
 
-		glm::vec3 lightPos = glm::vec3(radius * sin(crntTime), 5.0f * cos(crntTime) + 6.0f, radius * cos(crntTime));
+		glm::vec3 lightPos = glm::vec3(radius * sin(crntTime), 0.8f, radius * cos(crntTime));
 		glm::mat4 lightModel = glm::mat4(1.0f);
 		lightModel = glm::translate(lightModel, lightPos);
-		float distance = lightPos.y - pyramidPos.y;
+		
 		float spin = 150.0f;
 		lightModel = glm::rotate(lightModel, glm::radians(spin * crntTime), glm::vec3(1.0f, 1.0f, 1.0f));
+
+		
+
+
+
 
 		floor.Draw(pyramidShader, camera);
 		glUniform3f(glGetUniformLocation(pyramidShader.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
