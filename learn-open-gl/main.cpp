@@ -133,11 +133,8 @@ int main() {
 	//LINK LIGHT SHADERS
 	Shader lightShader("light.vert", "light.frag");
 	
-	std::vector <Vertex>  lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
-	std::vector <GLuint>  lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(GLuint));
-	std::vector <Texture> lightTex(blockTexture, blockTexture + sizeof(blockTexture) / sizeof(Texture));
-	Mesh block(lightVerts, lightInd, lightTex);
-
+	
+	
 	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 lightPos = glm::vec3(0.0f, 0.8f, 50.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
@@ -160,6 +157,10 @@ int main() {
 
 	Camera camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0f, 0.3f, 2.0f));
 
+	std::vector <Vertex>  lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
+	std::vector <GLuint>  lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(GLuint));
+	std::vector <Texture> lightTex(blockTexture, blockTexture + sizeof(blockTexture) / sizeof(Texture));
+	Mesh block(lightVerts, lightInd, lightTex);
 	//Model sword("C:/Repos/learn-open-gl/Models/sword/sword.gltf");
 	//Model scroll("C:/Repos/learn-open-gl/Models/scroll/scroll.gltf");
 	//Model bunny("C:/Repos/learn-open-gl/Models/bunny/bunny.gltf");
@@ -174,7 +175,7 @@ int main() {
 		processInput(window);
 		
 		//specify color of background
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.75f, 0.75f, 0.85f, 1.0f);
 		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		camera.Inputs(window);
@@ -186,7 +187,8 @@ int main() {
 		//sword.Draw(shaderProgram, camera);
 		//sword.Draw(shaderProgram, camera);
 		//scroll.Draw(shaderProgram, camera);
-		block.Draw(lightShader, camera, glm::mat4(1.0f), glm::vec3(0.0f, 8.0f, -2.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+		block.Draw(lightShader, camera);
+		blockTexture->Unbind();
 		ground.Draw(shaderProgram, camera);
 		trees.Draw(shaderProgram, camera);
 		//bunny.Draw(shaderProgram, camera);
