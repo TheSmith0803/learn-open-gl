@@ -329,10 +329,3 @@ std::vector <glm::vec4> Model::groupFloatsVec4(std::vector<float> floatVec)
 	}
 	return vectors;
 }
-
-//translate function
-void Model::Translate(float x, float y, float z)
-{
-	glm::vec3 translation = glm::vec3(x, y, z);
-	modelMatrix = glm::translate(glm::mat4(1.0f), translation);
-}
