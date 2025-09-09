@@ -2,6 +2,7 @@
 
 Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures)
 {
+	// define mesh constructor arguments
 	Mesh::vertices = vertices;
 	Mesh::indices = indices;
 	Mesh::textures = textures;
@@ -26,6 +27,7 @@ Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::v
 }
 
 void Mesh::Draw(
+	//get shader and camera matrix
 	Shader& shader, 
 	Camera& camera,
 	glm::mat4 matrix,
