@@ -23,34 +23,34 @@
 Vertex cubeVertices[] =
 {
 	// Front face (z = 0.1)
-Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.6666f)},
-Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.6666f)},
+Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.3333f)},
 
 // Back face (z = -0.1)
-Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f,  -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f,  0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.6666f)},
-Vertex{glm::vec3(-0.1f, 0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.6666f)},
+Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(0.1f,  -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(0.1f,  0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.1f, 0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.3333f)},
 
 // Left face (x = -0.1)									
-Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.3333f)},
-Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.6666f)},
-Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.6666f)},
+Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.3333f)},
 
 // Right face (x = 0.1)									
-Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.6666f)},
-Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.6666f)},
+Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
 
 // Top face (y = 0.1)										
-Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
 
 // Bottom face (y = -0.1)									
 Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
@@ -238,17 +238,11 @@ int main() {
 		*/
 
 		//generate a minecraft chunk!!
-		for (float x = 0.0f; x < 3.2f; x += 0.2f)
+		for (float x = 0.0f; x < 100.0f; x += 0.2f)
 		{
-			for (float y = 0.0f; y < 3.2f; y += 0.2f)
-			{
-				for (float z = 0.0f; z < 3.2f; z += 0.2f)
-				{
-					blockPos = glm::vec3(x, y, z);
-					glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
-					block.Draw(lightShader, camera, newBlockModel);
-				}
-			}
+			blockPos = glm::vec3(x, 0.0f, 0.0f);
+			glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
+			block.Draw(lightShader, camera, newBlockModel);
 		}
 
 		blockModel = glm::translate(blockModel, glm::vec3(0.0f, 0.0f, 0.0f));
