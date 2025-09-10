@@ -231,29 +231,37 @@ int main() {
 		//or transform that identity matrix over time like here
 		
 		//the speed at which the cube will rotate
-		//
-		float rotSpeed = 2.0f;
-		glm::vec3 axis = glm::vec3(0.0f, crntTime, 0.0f);
+		/*
+		float rotSpeed = 0.0f;
+		glm::vec3 axis = glm::vec3(0.0f, 0.0f, 0.0f);
 		blockModel = glm::rotate(blockModel, glm::radians(rotSpeed), axis);
+		*/
 
-		for (unsigned int j = 0; j < 10; j++)
+		//generate a minecraft chunk!!
+		for (float x = 0.0f; x < 3.2f; x += 0.2f)
 		{
-			blockPos = blockPosArray[j];
-			glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
-			block.Draw(lightShader, camera, newBlockModel);
+			for (float y = 0.0f; y < 3.2f; y += 0.2f)
+			{
+				for (float z = 0.0f; z < 3.2f; z += 0.2f)
+				{
+					blockPos = glm::vec3(x, y, z);
+					glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
+					block.Draw(lightShader, camera, newBlockModel);
+				}
+			}
 		}
 
-		blockModel = glm::translate(blockModel, glm::vec3(0.0f, 0.01f * sin(crntTime), 0.0f));
+		blockModel = glm::translate(blockModel, glm::vec3(0.0f, 0.0f, 0.0f));
 
 		//block.Draw(lightShader, camera, blockModel);
 		//blockTexture->Unbind();
 
 		//as for translating the Models and such... no idea
-		ground.Draw(shaderProgram, camera);
-		trees.Draw(shaderProgram, camera);
+		//ground.Draw(shaderProgram, camera);
+		//trees.Draw(shaderProgram, camera);
 		
 		 /*POLL EVENTS AND STUFF*/
-
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
