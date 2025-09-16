@@ -2,6 +2,7 @@
 
 Model::Model(const char* file)
 {
+	
 	std::string text = get_file_contents(file);
 	JSON = json::parse(text);
 
@@ -11,13 +12,18 @@ Model::Model(const char* file)
 	traverseNode(0);
 }
 
-void Model::Draw(Shader& shader, Camera& camera)
+void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translate, glm::quat rotation, glm::vec3 scale)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-		//maybe implement scaling here?????????????
-		glm::mat4 finalMatrix = modelMatrix * matricesMeshes[i];
-		meshes[i].Mesh::Draw(shader, camera, finalMatrix);
+		//translate, rotate, and scale the model
+		
+		glm::mat4 modelMatrix = matricesMeshes[i];
+		modelMatrix = glm::translate(modelMatrix, translate);
+		modelMatrix = modelMatrix * glm::mat4_cast(rotation);
+		modelMatrix = glm::scale(modelMatrix, scale);
+		meshes[i].Draw(shader, camera, modelMatrix);
+		
 	}
 }
 
@@ -42,7 +48,6 @@ void Model::loadMesh(unsigned int indMesh)
 	std::vector<Texture> textures = getTextures();
 
 	meshes.push_back(Mesh(vertices, indices, textures));
-
 }
 
 void Model::traverseNode(unsigned int nextNode, glm::mat4 matrix)
@@ -133,7 +138,7 @@ std::vector<unsigned char> Model::getData()
 
 	std::string fileStr = std::string(file);
 	std::string fileDirectory = fileStr.substr(0, fileStr.find_last_of('/') + 1);
-	std::cout << "HERE IS THE FILE PATH" << fileDirectory + uri << std::endl;
+	//std::cout << "HERE IS THE FILE PATH" << fileDirectory + uri << std::endl;
 	bytesText = get_file_contents((fileDirectory + uri).c_str());
 
 	std::vector<unsigned char> data(bytesText.begin(), bytesText.end());

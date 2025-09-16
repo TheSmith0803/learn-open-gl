@@ -16,6 +16,7 @@
 #include"Camera.h"
 #include"BlockUVs.h"
 */
+#include<random>
 #include"Mesh.h"
 #include"Model.h"
 
@@ -86,6 +87,11 @@ std::string readTextFile(const std::string& filePath);
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
+//random numbers for windows
+const unsigned int numWindows = 100;
+glm::vec3 positionsWin[numWindows];
+float rotationsWin[numWindows];
+
 int main() {
 
 
@@ -130,12 +136,14 @@ int main() {
 	};
 
 	Shader shaderProgram("default.vert", "default.frag");
-	//LINK LIGHT SHADERS
 	Shader lightShader("light.vert", "light.frag");
+	Shader grassShader("default.vert", "grass.frag");
+	Shader windowShader("default.vert", "windows.frag");
+
 	
 	
 	
-	glm::vec4 blockColor = glm::vec4(1.0f, 0.0f, 1.0f, 1.0f);
+	glm::vec4 blockColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 blockPos = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::mat4 blockModel = glm::mat4(1.0f);
 	blockModel = glm::translate(blockModel, blockPos);
@@ -151,6 +159,7 @@ int main() {
 	glUniform3f(glGetUniformLocation(lightShader.ID, "lightPos"), blockPos.x, blockPos.y, blockPos.z);
 
 	shaderProgram.Activate();
+	grassShader.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(dirtModel));
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), blockPos.x, blockPos.y, blockPos.z);
@@ -159,7 +168,7 @@ int main() {
 	//Figure out how to do a texture atlas lmao
 
 	glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_LESS);
+	glDepthFunc(GL_LESS);
 	
 	//face culling makes sure the backside of rendered
 	//objects doesnt render
@@ -174,18 +183,15 @@ int main() {
 	std::vector <Texture> cubeTex(blockTexture, blockTexture + sizeof(blockTexture) / sizeof(Texture));
 	Mesh block(cubeVerts, cubeInd, cubeTex);
 
-	//Model sword("C:/Repos/learn-open-gl/Models/sword/sword.gltf");
-	//Model scroll("C:/Repos/learn-open-gl/Models/scroll/scroll.gltf");
-	//Model bunny("C:/Repos/learn-open-gl/Models/bunny/bunny.gltf");
-	Model ground("C:/Repos/learn-open-gl/Models/ground/ground.gltf");
-	Model trees("C:/Repos/learn-open-gl/Models/trees/scene.gltf");
-	//bunny.Translate(0.0f, 10.0f, 0.0f);
+	
+	Model ground("C:/repos/learn-open-gl/Models/ground/scene.gltf");
+	Model grass("C:/Repos/learn-open-gl/Models/grass/scene.gltf");
+	Model windows("C:/Repos/learn-open-gl/Models/windows/scene.gltf");
 
 	double prevTime = 0.0f;
 	double crntTime = 0.0f;
 	double timeDiff;
 	unsigned int counter = 0;
-
 
 	glm::vec3 blockPosArray[] = {
 	   glm::vec3(0.0f, 0.0f, 0.0f),    // First cube at origin
@@ -200,7 +206,21 @@ int main() {
 	   glm::vec3(1.8f, 0.0f, 0.0f)     // Tenth cube 1.8 units to the right
 	};
 
-	//very simple render loop
+	for (unsigned int i = 0; i < numWindows; i++)
+	{
+		srand(static_cast<unsigned>(time(0)));
+		positionsWin[i] = glm::vec3(
+			-15.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (15.0f - (-15.0f)))),
+			1.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (4.0f - 1.0f))),
+			-15.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (15.0f - (-15.0f))))
+			);
+		rotationsWin[i] = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 1.0f));
+	}
+
+	////////////////////////////
+	//START OF THE RENDER LOOP//
+	////////////////////////////
+
 	while (!glfwWindowShouldClose(window))
 	{
 
@@ -220,7 +240,7 @@ int main() {
 		processInput(window);
 		
 		//specify color of background
-		glClearColor(0.75f, 0.75f, 0.85f, 1.0f);
+		glClearColor(0.45f, 0.45f, 0.95f, 1.0f);
 		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		camera.Inputs(window);
@@ -238,7 +258,7 @@ int main() {
 		*/
 
 		//generate a minecraft chunk!!
-		for (float x = 0.0f; x < 100.0f; x += 0.2f)
+		for (float x = 0.0f; x < 10.0f; x += 0.2f)
 		{
 			blockPos = glm::vec3(x, 0.0f, 0.0f);
 			glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
@@ -251,9 +271,19 @@ int main() {
 		//blockTexture->Unbind();
 
 		//as for translating the Models and such... no idea
-		//ground.Draw(shaderProgram, camera);
-		//trees.Draw(shaderProgram, camera);
+		ground.Draw(grassShader, camera, glm::vec3(0.0f, 0.0f, 0.0f));
+		glDisable(GL_CULL_FACE);
+		grass.Draw(grassShader, camera);
 		
+		//TODO: FIGURE OUT HOW THE HECK TO RANDOMLY TRANSLATE SAID THINGYS
+		for (unsigned int i = 0; i < numWindows; i++)
+		{
+			windows.Draw(windowShader, camera, positionsWin[i], glm::quat(1.0f, 1.0f, rotationsWin[i], 0.0f));
+		}
+
+
+		//trees.Draw(shaderProgram, camera);
+		glEnable(GL_CULL_FACE);
 		 /*POLL EVENTS AND STUFF*/
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// check and call events and swap the buffers
@@ -266,6 +296,7 @@ int main() {
 	
 	shaderProgram.Delete();
 	lightShader.Delete();
+	grassShader.Delete();
 
 	
 	glfwDestroyWindow(window);

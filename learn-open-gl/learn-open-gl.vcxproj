@@ -147,11 +147,13 @@
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="grass.frag" />
     <None Include="light.frag" />
     <None Include="light.vert" />
     <None Include="default.frag" />
     <None Include="default.vert" />
     <None Include="..\README.md" />
+    <None Include="windows.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockUVs.h" />

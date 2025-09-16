@@ -27,6 +27,8 @@ uniform mat4 scale;
 
 void main()
 {
+	/*TODO: I am imagining the problem is the way the model class
+	is communicating with THIS vertex shader*/
 	crntPos = vec3(model * translation * -rotation * scale * vec4(aPos, 1.0f));
 	// assigns the colors from the vertex data to the "color"
 	color = aColor;
@@ -34,4 +36,15 @@ void main()
 	Normal = aNormal;
 
 	gl_Position = camMatrix * vec4(aPos, 1.0);
+	
+	/*
+	vec4 worldPos = model * vec4(aPos, 1.0f);
+	crntPos = vec3(worldPos);
+
+	gl_Position = camMatrix * worldPos;
+
+	color = aColor;
+	texCoord = mat2(0.0, -1.0, 1.0, 0.0) * aTex;
+	Normal = aNormal;
+	*/
 }

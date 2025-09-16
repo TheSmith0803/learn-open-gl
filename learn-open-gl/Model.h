@@ -11,9 +11,17 @@ class Model
 public:
 	Model(const char* file);
 
-	void Draw(Shader& shader, Camera& camera);
+	void Draw(
+		Shader& shader, 
+		Camera& camera, 
+		glm::vec3 translate = glm::vec3(0.0f, 0.0f, 0.0f), 
+		glm::quat rotation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f), 
+		glm::vec3 scale = glm::vec3(0.0f, 0.0f, 0.0f)
+	);
 
 private:
+	
+
 	const char* file;
 	std::vector<unsigned char> data;
 	json JSON;
