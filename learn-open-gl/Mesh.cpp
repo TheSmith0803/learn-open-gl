@@ -76,3 +76,9 @@ void Mesh::Draw(
 
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
+
+glm::mat4 Mesh::getIdentityMatrix()
+{
+	glm::mat4 identityMatrix = glm::mat4(1.0f);
+	return identityMatrix;
+}

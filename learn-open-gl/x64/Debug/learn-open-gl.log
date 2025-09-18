@@ -1,2 +1,4 @@
-﻿  main.cpp
-  learn-open-gl.vcxproj -> C:\repos\learn-open-gl\x64\Debug\learn-open-gl.exe
+﻿  Model.cpp
+C:\Repos\learn-open-gl\learn-open-gl\Model.cpp(269,91): warning C4267: 'argument': conversion from 'size_t' to 'GLuint', possible loss of data
+C:\Repos\learn-open-gl\learn-open-gl\Model.cpp(276,93): warning C4267: 'argument': conversion from 'size_t' to 'GLuint', possible loss of data
+  learn-open-gl.vcxproj -> C:\Repos\learn-open-gl\x64\Debug\learn-open-gl.exe

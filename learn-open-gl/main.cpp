@@ -16,6 +16,7 @@
 #include"Camera.h"
 #include"BlockUVs.h"
 */
+#include<cstdlib>
 #include<random>
 #include"Mesh.h"
 #include"Model.h"
@@ -136,33 +137,38 @@ int main() {
 	};
 
 	Shader shaderProgram("default.vert", "default.frag");
-	Shader lightShader("light.vert", "light.frag");
+	Shader blockShader("light.vert", "light.frag");
 	Shader grassShader("default.vert", "grass.frag");
 	Shader windowShader("default.vert", "windows.frag");
-
-	
-	
 	
 	glm::vec4 blockColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec3 blockPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 blockPos = glm::vec3(10.0f, 0.0f, 0.0f);
 	glm::mat4 blockModel = glm::mat4(1.0f);
 	blockModel = glm::translate(blockModel, blockPos);
 	
-	glm::vec3 dirtPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 dirtPos = glm::vec3(10.0f, 0.0f, 0.0f);
 	glm::mat4 dirtModel = glm::mat4(1.0f);
 	dirtModel = glm::translate(dirtModel, dirtPos);
 	
 
-	lightShader.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 0, GL_FALSE, glm::value_ptr(blockModel));
-	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
-	glUniform3f(glGetUniformLocation(lightShader.ID, "lightPos"), blockPos.x, blockPos.y, blockPos.z);
+	blockShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(blockShader.ID, "model"), 0, GL_FALSE, glm::value_ptr(blockModel));
+	glUniform4f(glGetUniformLocation(blockShader.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
+	glUniform3f(glGetUniformLocation(blockShader.ID, "lightPos"), blockPos.x, blockPos.y, blockPos.z);
 
 	shaderProgram.Activate();
 	grassShader.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(dirtModel));
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 0, GL_FALSE, glm::value_ptr(dirtModel));
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), blockPos.x, blockPos.y, blockPos.z);
+
+	
+
+	windowShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(grassShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(dirtModel));
+	glUniform4f(glGetUniformLocation(grassShader.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
+	glUniform3f(glGetUniformLocation(grassShader.ID, "lightPos"), dirtPos.x, dirtPos.y, dirtPos.z);
+	
 
 
 	//Figure out how to do a texture atlas lmao
@@ -262,12 +268,12 @@ int main() {
 		{
 			blockPos = glm::vec3(x, 0.0f, 0.0f);
 			glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
-			block.Draw(lightShader, camera, newBlockModel);
+			block.Draw(blockShader, camera, newBlockModel);
 		}
 
 		blockModel = glm::translate(blockModel, glm::vec3(0.0f, 0.0f, 0.0f));
 
-		//block.Draw(lightShader, camera, blockModel);
+		//block.Draw(blockShader, camera, blockModel);
 		//blockTexture->Unbind();
 
 		//as for translating the Models and such... no idea
@@ -295,7 +301,7 @@ int main() {
 	// ----------------------------------------------------------------------
 	
 	shaderProgram.Delete();
-	lightShader.Delete();
+	blockShader.Delete();
 	grassShader.Delete();
 
 	
