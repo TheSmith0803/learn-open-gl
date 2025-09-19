@@ -16,14 +16,11 @@ void Model::Draw(Shader& shader, Camera& camera, glm::vec3 translate, glm::quat 
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-		
-
 		glm::mat4 modelMatrix = meshes[i].getIdentityMatrix();
 		modelMatrix = glm::translate(modelMatrix, translate);
 		modelMatrix = modelMatrix * glm::mat4_cast(rotation);
 		modelMatrix = glm::scale(modelMatrix, scale);
 		meshes[i].Mesh::Draw(shader, camera, modelMatrix);
-		
 	}
 }
 
@@ -116,8 +113,6 @@ void Model::traverseNode(unsigned int nextNode, glm::mat4 matrix)
 		rotationMeshes.push_back(rotation);
 		scalesMeshes.push_back(scale);
 		matricesMeshes.push_back(matNextNode);
-
-		std::cout << "This is the node mesh..." << node["mesh"] << std::endl;
 		loadMesh(node["mesh"]);
 	}
 
@@ -138,7 +133,7 @@ std::vector<unsigned char> Model::getData()
 
 	std::string fileStr = std::string(file);
 	std::string fileDirectory = fileStr.substr(0, fileStr.find_last_of('/') + 1);
-	//std::cout << "HERE IS THE FILE PATH" << fileDirectory + uri << std::endl;
+	std::cout << "HERE IS THE FILE PATH" << fileDirectory + uri << std::endl;
 	bytesText = get_file_contents((fileDirectory + uri).c_str());
 
 	std::vector<unsigned char> data(bytesText.begin(), bytesText.end());

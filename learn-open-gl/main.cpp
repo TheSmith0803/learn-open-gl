@@ -93,6 +93,12 @@ const unsigned int numWindows = 100;
 glm::vec3 positionsWin[numWindows];
 float rotationsWin[numWindows];
 
+const float crntTime = glfwGetTime();
+
+const glm::vec3 defaultTranslation = glm::vec3(0.0f, 0.0f, 0.0f);
+const glm::quat deafaultRotation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
+const glm::vec3 defaultScale = glm::vec3(1.0f, 1.0f, 1.0f);
+
 int main() {
 
 
@@ -192,7 +198,8 @@ int main() {
 	
 	Model ground("C:/repos/learn-open-gl/Models/ground/scene.gltf");
 	Model grass("C:/Repos/learn-open-gl/Models/grass/scene.gltf");
-	Model windows("C:/Repos/learn-open-gl/Models/windows/scene.gltf");
+	Model windows("C:\\Repos/learn-open-gl/Models/windows/scene.gltf");
+	Model rat("C:\\repos\\learn-open-gl\\Models\\therat/scene.gltf");
 
 	double prevTime = 0.0f;
 	double crntTime = 0.0f;
@@ -212,15 +219,22 @@ int main() {
 	   glm::vec3(1.8f, 0.0f, 0.0f)     // Tenth cube 1.8 units to the right
 	};
 
+	srand(static_cast<unsigned>(time(0)));
 	for (unsigned int i = 0; i < numWindows; i++)
 	{
-		srand(static_cast<unsigned>(time(0)));
+		
 		positionsWin[i] = glm::vec3(
 			-15.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (15.0f - (-15.0f)))),
 			1.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (4.0f - 1.0f))),
 			-15.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (15.0f - (-15.0f))))
 			);
 		rotationsWin[i] = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 1.0f));
+	}
+
+	for (unsigned int i = 0; i < numWindows; i++)
+	{
+		std::cout << "positions win: " << positionsWin[i].x << std::endl;
+		std::cout << "rotations win: " << rotationsWin[i] << std::endl;
 	}
 
 	////////////////////////////
@@ -257,11 +271,11 @@ int main() {
 		//or transform that identity matrix over time like here
 		
 		//the speed at which the cube will rotate
-		/*
-		float rotSpeed = 0.0f;
-		glm::vec3 axis = glm::vec3(0.0f, 0.0f, 0.0f);
+		
+		float rotSpeed = 1.0f;
+		glm::vec3 axis = glm::vec3(1.0f, 0.0f, 0.0f);
 		blockModel = glm::rotate(blockModel, glm::radians(rotSpeed), axis);
-		*/
+		
 
 		//generate a minecraft chunk!!
 		for (float x = 0.0f; x < 10.0f; x += 0.2f)
@@ -277,16 +291,17 @@ int main() {
 		//blockTexture->Unbind();
 
 		//as for translating the Models and such... no idea
-		ground.Draw(grassShader, camera, glm::vec3(0.0f, 0.0f, 0.0f));
+		ground.Draw(grassShader, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(0.0f, 0.0f, 0.0f, 0.0f), glm::vec3(sin(((5.0f * crntTime) / 2)) + 1.5f, sin(((2.5f * crntTime) / 2)) + 1.5f, 10.0f));
 		glDisable(GL_CULL_FACE);
-		grass.Draw(grassShader, camera);
+		grass.Draw(grassShader, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(0.0f, 0.0f, 0.0f, 0.0f), glm::vec3(sin(((5.0f * crntTime) / 2)) + 1.5f, sin(((2.5f * crntTime) / 2)) + 1.5f, 10.0f));
 		
 		//TODO: FIGURE OUT HOW THE HECK TO RANDOMLY TRANSLATE SAID THINGYS
 		for (unsigned int i = 0; i < numWindows; i++)
 		{
-			windows.Draw(windowShader, camera, positionsWin[i], glm::quat(1.0f, 1.0f, rotationsWin[i], 0.0f));
+			windows.Draw(windowShader, camera, glm::vec3(static_cast<float>(i), 0.0f, 0.0f), glm::quat(1.0f, 1.0f, rotationsWin[i], 0.0f));
 		}
 
+		rat.Draw(shaderProgram, camera, defaultTranslation, glm::vec3(10.5f * crntTime), glm::vec3(100.0f));
 
 		//trees.Draw(shaderProgram, camera);
 		glEnable(GL_CULL_FACE);

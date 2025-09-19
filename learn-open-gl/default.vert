@@ -35,7 +35,7 @@ void main()
 	texCoord = mat2(0.0, -1.0, 1.0, 0.0) * aTex;
 	Normal = aNormal;
 
-	gl_Position = camMatrix * vec4(aPos, 1.0);
+	gl_Position = camMatrix * model * translation * rotation * scale * vec4(aPos, 1.0);
 	
 	/*
 	vec4 worldPos = model * vec4(aPos, 1.0f);
