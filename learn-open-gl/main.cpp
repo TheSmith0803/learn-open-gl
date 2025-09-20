@@ -198,8 +198,8 @@ int main() {
 	
 	Model ground("C:/repos/learn-open-gl/Models/ground/scene.gltf");
 	Model grass("C:/Repos/learn-open-gl/Models/grass/scene.gltf");
-	Model windows("C:\\Repos/learn-open-gl/Models/windows/scene.gltf");
-	Model rat("C:\\repos\\learn-open-gl\\Models\\therat/scene.gltf");
+	Model windows("C:/Repos/learn-open-gl/Models/windows/scene.gltf");
+	Model rat("C:/repos/learn-open-gl/Models/therat/street_rat_4k.gltf");
 
 	double prevTime = 0.0f;
 	double crntTime = 0.0f;
@@ -301,7 +301,7 @@ int main() {
 			windows.Draw(windowShader, camera, glm::vec3(static_cast<float>(i), 0.0f, 0.0f), glm::quat(1.0f, 1.0f, rotationsWin[i], 0.0f));
 		}
 
-		rat.Draw(shaderProgram, camera, defaultTranslation, glm::vec3(10.5f * crntTime), glm::vec3(100.0f));
+		rat.Draw(shaderProgram, camera, defaultTranslation, glm::vec3(0.0f, -2.0f, 0.0f), glm::vec3(300.0f));
 
 		//trees.Draw(shaderProgram, camera);
 		glEnable(GL_CULL_FACE);

@@ -1,9 +1,4 @@
 ﻿  main.cpp
 C:\repos\learn-open-gl\learn-open-gl\main.cpp(96,35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\repos\learn-open-gl\learn-open-gl\main.cpp(96,22): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
-C:\repos\learn-open-gl\learn-open-gl\main.cpp(304,71): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-C:\repos\learn-open-gl\learn-open-gl\main.cpp(304,71): warning C4244:         with
-C:\repos\learn-open-gl\learn-open-gl\main.cpp(304,71): warning C4244:         [
-C:\repos\learn-open-gl\learn-open-gl\main.cpp(304,71): warning C4244:             T=float
-C:\repos\learn-open-gl\learn-open-gl\main.cpp(304,71): warning C4244:         ]
   learn-open-gl.vcxproj -> C:\repos\learn-open-gl\x64\Debug\learn-open-gl.exe
