@@ -219,7 +219,7 @@ int main() {
 	   glm::vec3(1.8f, 0.0f, 0.0f)     // Tenth cube 1.8 units to the right
 	};
 
-	srand(static_cast<unsigned>(time(0)));
+	//srand(static_cast<unsigned>(time(0)));
 	for (unsigned int i = 0; i < numWindows; i++)
 	{
 		
@@ -291,17 +291,17 @@ int main() {
 		//blockTexture->Unbind();
 
 		//as for translating the Models and such... no idea
-		ground.Draw(grassShader, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(0.0f, 0.0f, 0.0f, 0.0f), glm::vec3(sin(((5.0f * crntTime) / 2)) + 1.5f, sin(((2.5f * crntTime) / 2)) + 1.5f, 10.0f));
+		ground.Draw(grassShader, camera);
 		glDisable(GL_CULL_FACE);
-		grass.Draw(grassShader, camera, glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(0.0f, 0.0f, 0.0f, 0.0f), glm::vec3(sin(((5.0f * crntTime) / 2)) + 1.5f, sin(((2.5f * crntTime) / 2)) + 1.5f, 10.0f));
+		grass.Draw(grassShader, camera);
 		
 		//TODO: FIGURE OUT HOW THE HECK TO RANDOMLY TRANSLATE SAID THINGYS
 		for (unsigned int i = 0; i < numWindows; i++)
 		{
-			windows.Draw(windowShader, camera, glm::vec3(static_cast<float>(i), 0.0f, 0.0f), glm::quat(1.0f, 1.0f, rotationsWin[i], 0.0f));
+			windows.Draw(windowShader, camera, positionsWin[i], glm::vec3(0.0f, rotationsWin[i], 0.0f));
 		}
 
-		rat.Draw(shaderProgram, camera, defaultTranslation, glm::vec3(0.0f, -2.0f, 0.0f), glm::vec3(300.0f));
+		rat.Draw(shaderProgram, camera, glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.0f, -2.0f, 0.0f), glm::vec3(300.0f));
 
 		//trees.Draw(shaderProgram, camera);
 		glEnable(GL_CULL_FACE);

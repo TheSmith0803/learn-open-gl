@@ -330,3 +330,8 @@ But hey look, I made minecraft:
 
 ![minecraft](minecraft-screenshot-lol.png)
 
+# I figured out how to actually translate my models! 
+
+Also I loaded in this random rat from the internet without a texture 
+
+![da rat and da windows](readme-pix/rat-pic.png)
