@@ -1,4 +1,4 @@
-/*
+
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -15,12 +15,45 @@
 #include"VAO.h"
 #include"Camera.h"
 #include"BlockUVs.h"
-*/
+
 #include<cstdlib>
 #include<random>
 #include"Mesh.h"
 #include"Model.h"
 
+float skyboxVertices[] =
+{
+	-1.0f, -1.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f,
+	 1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,
+	-1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,
+};
+
+unsigned int skyboxIndices[] = {
+	// Right
+	1,2,6,
+	6,5,1,
+	// Left
+	0,4,7,
+	7,3,0,
+	// Front
+	0,1,5,
+	5,4,0,
+	// Back
+	2,3,7,
+	6,2,3,
+	// Top
+	4,5,6,
+	6,7,4,
+	// Bottom
+	0,1,2,
+	2,3,0,
+
+};
 
 Vertex cubeVertices[] =
 {
@@ -99,6 +132,7 @@ const glm::vec3 defaultTranslation = glm::vec3(0.0f, 0.0f, 0.0f);
 const glm::quat deafaultRotation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
 const glm::vec3 defaultScale = glm::vec3(1.0f, 1.0f, 1.0f);
 
+
 int main() {
 
 
@@ -141,6 +175,73 @@ int main() {
 	Texture blockTexture[]{
 		Texture("Atlas.png", "diffuse", 0)
 	};
+
+
+	// SKYBOX CODE: PUT THIS IN TO A CLASS AT SOME POINT
+	unsigned int skyboxVAO, skyboxVBO, skyboxEBO;
+	glGenVertexArrays(1, &skyboxVAO);
+	glGenBuffers(1, &skyboxVBO);
+	glGenBuffers(1, &skyboxEBO);
+	glBindVertexArray(skyboxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(skyboxIndices), &skyboxIndices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	std::string facesCubeMap[6] = {
+		"right.jpg",
+		"left.jpg",
+		"top.jpg",
+		"bottom.jpg",
+		"front.jpg",
+		"back.jpg",
+	};
+
+	unsigned int cubemapTexture;
+	glGenTextures(1, &cubemapTexture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	for (unsigned int i = 0; i < 0; i++)
+	{
+		int width, height, nrChannels;
+		unsigned char* data = stbi_load(facesCubeMap[i].c_str(), &width, &height, &nrChannels, 0);
+		if (data)
+		{
+			stbi_set_flip_vertically_on_load(false);
+			glTexImage2D(
+				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+				0,
+				GL_RGB,
+				width,
+				height,
+				0,
+				GL_RGB,
+				GL_UNSIGNED_BYTE,
+				data
+			);
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Failed to load skybox texture: " << facesCubeMap[i] << std::endl;
+			stbi_image_free(data);
+		}
+
+	}
+
+	// PLEASE PUT THIS IN A CLASS LOL
+
+
 
 	Shader shaderProgram("default.vert", "default.frag");
 	Shader blockShader("light.vert", "light.frag");
@@ -190,11 +291,11 @@ int main() {
 	
 	Camera camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0f, 0.3f, 2.0f));
 
+	//Get a block rendered
 	std::vector <Vertex>  cubeVerts(cubeVertices, cubeVertices + sizeof(cubeVertices) / sizeof(Vertex));
 	std::vector <GLuint>  cubeInd(cubeIndices, cubeIndices + sizeof(cubeIndices) / sizeof(GLuint));
 	std::vector <Texture> cubeTex(blockTexture, blockTexture + sizeof(blockTexture) / sizeof(Texture));
 	Mesh block(cubeVerts, cubeInd, cubeTex);
-
 	
 	Model ground("C:/repos/learn-open-gl/Models/ground/scene.gltf");
 	Model grass("C:/Repos/learn-open-gl/Models/grass/scene.gltf");
@@ -202,22 +303,8 @@ int main() {
 	Model rat("C:/repos/learn-open-gl/Models/therat/street_rat_4k.gltf");
 
 	double prevTime = 0.0f;
-	double crntTime = 0.0f;
 	double timeDiff;
 	unsigned int counter = 0;
-
-	glm::vec3 blockPosArray[] = {
-	   glm::vec3(0.0f, 0.0f, 0.0f),    // First cube at origin
-	   glm::vec3(0.2f, 0.0f, 0.0f),    // Second cube 0.2 units to the right
-	   glm::vec3(0.4f, 0.0f, 0.0f),    // Third cube 0.4 units to the right
-	   glm::vec3(0.6f, 0.0f, 0.0f),    // Fourth cube 0.6 units to the right
-	   glm::vec3(0.8f, 0.0f, 0.0f),    // Fifth cube 0.8 units to the right
-	   glm::vec3(1.0f, 0.0f, 0.0f),    // Sixth cube 1.0 units to the right
-	   glm::vec3(1.2f, 0.0f, 0.0f),    // Seventh cube 1.2 units to the right
-	   glm::vec3(1.4f, 0.0f, 0.0f),    // Eighth cube 1.4 units to the right
-	   glm::vec3(1.6f, 0.0f, 0.0f),    // Ninth cube 1.6 units to the right
-	   glm::vec3(1.8f, 0.0f, 0.0f)     // Tenth cube 1.8 units to the right
-	};
 
 	//srand(static_cast<unsigned>(time(0)));
 	for (unsigned int i = 0; i < numWindows; i++)
@@ -243,8 +330,6 @@ int main() {
 
 	while (!glfwWindowShouldClose(window))
 	{
-
-		crntTime = glfwGetTime();
 		timeDiff = crntTime - prevTime;
 		counter++;
 		if (timeDiff >= 1.0 / 30.0)

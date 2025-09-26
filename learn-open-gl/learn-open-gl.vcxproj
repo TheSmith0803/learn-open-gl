@@ -153,6 +153,8 @@
     <None Include="default.frag" />
     <None Include="default.vert" />
     <None Include="..\README.md" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
     <None Include="windows.frag" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +172,13 @@
   <ItemGroup>
     <Image Include="..\..\..\Users\ESmith\Downloads\shrek.png" />
     <Image Include="..\blocks\Atlas\Atlas.png" />
+    <Image Include="back.jpg" />
+    <Image Include="bottom.jpg" />
     <Image Include="brick.png" />
+    <Image Include="front.jpg" />
+    <Image Include="left.jpg" />
+    <Image Include="right.jpg" />
+    <Image Include="top.jpg" />
     <Image Include="wood-floor-specular.jpg" />
     <Image Include="wood-floor-specular.png" />
     <Image Include="wood-floor.jpg" />
