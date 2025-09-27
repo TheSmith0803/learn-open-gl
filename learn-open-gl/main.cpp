@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -13,13 +13,14 @@
 #include"VBO.h"
 #include"EBO.h"
 #include"VAO.h"
-#include"Camera.h"
-#include"BlockUVs.h"
+#include"Camera.h
+*/
 
 #include<cstdlib>
 #include<random>
 #include"Mesh.h"
 #include"Model.h"
+#include"Chunk.h"
 
 float skyboxVertices[] =
 {
@@ -57,40 +58,40 @@ unsigned int skyboxIndices[] = {
 
 Vertex cubeVertices[] =
 {
-	// Front face (z = 0.1)
+											// Front face (z = 0.1)
 Vertex{glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3( 0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3( 0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.3333f)},
 Vertex{glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.3333f)},
 
-// Back face (z = -0.1)
+                                            // Back face (z = -0.1)
 Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(0.5f,  -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(0.5f,  0.5f, -0.5f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(-0.5f, 0.5f, -0.5f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3( 0.5f, -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3( 0.5f,  0.5f, -0.5f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.5f,  0.5f,- 0.5f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.3333f)},
 
-// Left face (x = -0.1)									
+                                         // Left face (x = -0.1)									
 Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.0f)},
 Vertex{glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.0f)},
 Vertex{glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.3333f)},
 Vertex{glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.3333f)},
 
-// Right face (x = 0.1)									
-Vertex{glm::vec3(0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(0.5f, -0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(0.5f,  0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
+											// Right face (x = 0.1)									
+Vertex{glm::vec3( 0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3( 0.5f, -0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3( 0.5f,  0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3( 0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
 
-// Top face (y = 0.1)										
+											// Top face (y = 0.1)										
 Vertex{glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
-Vertex{glm::vec3(0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(0.5f,  0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3( 0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3( 0.5f,  0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
 Vertex{glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
 
-// Bottom face (y = -0.1)									
+											// Bottom face (y = -0.1)									
 Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
-Vertex{glm::vec3(0.5f, -0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
-Vertex{glm::vec3(0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 1.0f)},
+Vertex{glm::vec3( 0.5f, -0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3( 0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 1.0f)},
 Vertex{glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(0.0f, 1.0f)},
 };
 
@@ -280,6 +281,9 @@ int main() {
 	double timeDiff;
 	unsigned int counter = 0;
 
+	//init Chunk
+	Chunk chunk;
+
 	////////////////////////////
 	//START OF THE RENDER LOOP//
 	////////////////////////////
@@ -309,22 +313,11 @@ int main() {
 		camera.Inputs(window);
 		camera.updateMatrix(80.0f, 0.5f, 500.0f);
 		
-		//generate a minecraft chunk!!
-		for (float x = 0.0f; x < 16.0f; x += 1.0f)
-		{
-			for (float y = 0.0f; y > -16.0f; y -= 1.0f)
-			{
-				for (float z = 0.0f; z < 16.0f; z += 1.0f)
-				{
-					blockPos = glm::vec3(x, y, z);
-					glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
-					block.Draw(blockShader, camera, newBlockModel);
-				}
-			}
-		}
-
 		//trees.Draw(shaderProgram, camera);
 		glEnable(GL_CULL_FACE);
+
+		//GEN MINECRAFT CHUNK FOR REAL
+		chunk.chunkMesh->Draw(blockShader, camera, glm::mat4(1.0f));
 
 		// skybox stuff
 		glDepthFunc(GL_LEQUAL);

@@ -1,8 +1,7 @@
-C:\Repos\learn-open-gl\learn-open-gl\BlockUVs.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\BlockUVs.obj
 C:\Repos\learn-open-gl\learn-open-gl\Camera.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\Camera.obj
+C:\Repos\learn-open-gl\learn-open-gl\Chunk.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\Chunk.obj
 C:\Repos\learn-open-gl\learn-open-gl\EBO.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\EBO.obj
 C:\Repos\learn-open-gl\learn-open-gl\glad.c;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\glad.obj
-C:\Repos\learn-open-gl\learn-open-gl\lightBlock.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\lightBlock.obj
 C:\Repos\learn-open-gl\learn-open-gl\main.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\main.obj
 C:\Repos\learn-open-gl\learn-open-gl\Mesh.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\Mesh.obj
 C:\Repos\learn-open-gl\learn-open-gl\Model.cpp;C:\Repos\learn-open-gl\learn-open-gl\x64\Debug\Model.obj
