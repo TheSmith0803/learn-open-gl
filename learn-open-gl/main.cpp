@@ -119,8 +119,8 @@ convert to c string using c_str() method after
 std::string readTextFile(const std::string& filePath);
 */
 
-const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_HEIGHT = 1080;
+const unsigned int SCR_WIDTH = 2560;
+const unsigned int SCR_HEIGHT = 1440;
 
 const double crntTime = glfwGetTime();
 
@@ -315,9 +315,20 @@ int main() {
 		
 		//trees.Draw(shaderProgram, camera);
 		glEnable(GL_CULL_FACE);
-
-		//GEN MINECRAFT CHUNK FOR REAL
-		chunk.chunkMesh->Draw(blockShader, camera, glm::mat4(1.0f));
+		/* just for fun lol
+		for (unsigned int x = 0; x < 16*16; x += 16)
+		{
+			for (unsigned int z = 0; z < 16*16; z += 16)
+			{
+				//GEN MINECRAFT CHUNK FOR REAL
+				blockPos = glm::vec3(x, 0.0f, z);
+				glm::mat4 newBlockModel = glm::mat4(1.0f);
+				newBlockModel = glm::translate(newBlockModel, blockPos);
+				chunk.chunkMesh->Draw(blockShader, camera, newBlockModel);
+			}
+		}
+		*/
+		chunk.chunkMesh->Draw(blockShader, camera, blockModel);
 
 		// skybox stuff
 		glDepthFunc(GL_LEQUAL);

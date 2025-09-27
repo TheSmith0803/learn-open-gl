@@ -63,11 +63,11 @@ Chunk::Chunk()
 		{
 			for (int z = 0; z < CHUNK_DEPTH; z++)
 			{
-				blocks[x][y][z] = (y < 8) ? 1 : 0; //solid bottom hald(?)
+				blocks[x][y][z] = (y < CHUNK_HEIGHT) ? 1 : 0; //solid bottom hald(?)
 			}
 		}
 	}
-	this->generateMesh(faceVertices);
+	generateMesh(faceVertices);
 }
 
 Chunk::~Chunk()
