@@ -1,1 +1,63 @@
-.vs
+# Build artifacts
+bin/
+build/
+cmake-build-*/
+out/
+*.o
+*.obj
+*.lo
+*.la
+*.so
+*.a
+*.lib
+*.dll
+*.exe
+*.ilk
+*.pdb
+*.exp
+*.lib
+*.ncb
+*.suo
+*.user
+*.aps
+*.bsc
+*.sbr
+*.res
+*.pch
+*.idb
+*.ipch
+
+# IDE specific files
+.vscode/
+.idea/
+*.sln
+*.vcxproj*
+*.filters
+*.user
+*.layout
+*.workspace
+*.swp
+*.~
+*.bak
+*.orig
+*.rej
+*.log
+*.DS_Store
+Thumbs.db
+
+# Dependencies (if managed outside of source control, e.g., using a package manager)
+# For example, if using Conan, you might ignore:
+# conan_deps/
+
+# Generated files
+# If you generate shader files or other assets during the build process, ignore them here.
+# For example:
+# generated_shaders/
+# generated_textures/
+
+# Other temporary files
+*~
+#*#
+.#*
+*.tmp
+*.temp
