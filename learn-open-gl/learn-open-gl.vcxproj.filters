@@ -72,10 +72,10 @@
     <None Include="default.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="light.vert">
+    <None Include="block.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="light.frag">
+    <None Include="block.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="grass.frag">

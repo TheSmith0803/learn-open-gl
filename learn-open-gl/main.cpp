@@ -58,40 +58,40 @@ unsigned int skyboxIndices[] = {
 Vertex cubeVertices[] =
 {
 	// Front face (z = 0.1)
-Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f,  1.0f), glm::vec2(0.0f, 0.3333f)},
 
 // Back face (z = -0.1)
-Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(0.1f,  -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(0.1f,  0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(-0.1f, 0.1f, -0.1f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(0.5f,  -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(0.5f,  0.5f, -0.5f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.5f, 0.5f, -0.5f) ,  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),     glm::vec2(0.0f, 0.3333f)},
 
 // Left face (x = -0.1)									
-Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.3333f)},
 
 // Right face (x = 0.1)									
-Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.0f)},
-Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.0f)},
-Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.0f)},
+Vertex{glm::vec3(0.5f, -0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.0f)},
+Vertex{glm::vec3(0.5f,  0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f),      glm::vec2(0.0f, 0.3333f)},
 
 // Top face (y = 0.1)										
-Vertex{glm::vec3(-0.1f,  0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f,  0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
-Vertex{glm::vec3(0.1f,  0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
-Vertex{glm::vec3(-0.1f,  0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
+Vertex{glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.3333f)},
+Vertex{glm::vec3(0.5f,  0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.3333f)},
+Vertex{glm::vec3(0.5f,  0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
 
 // Bottom face (y = -0.1)									
-Vertex{glm::vec3(-0.1f, -0.1f, -0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
-Vertex{glm::vec3(0.1f, -0.1f, -0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
-Vertex{glm::vec3(0.1f, -0.1f,  0.1f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 1.0f)},
-Vertex{glm::vec3(-0.1f, -0.1f,  0.1f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(0.0f, 1.0f)},
+Vertex{glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(0.0f, 0.6666f)},
+Vertex{glm::vec3(0.5f, -0.5f, -0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 0.6666f)},
+Vertex{glm::vec3(0.5f, -0.5f,  0.5f),   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(1.0f, 1.0f)},
+Vertex{glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f),     glm::vec2(0.0f, 1.0f)},
 };
 
 GLuint cubeIndices[] =
@@ -121,17 +121,7 @@ std::string readTextFile(const std::string& filePath);
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
 
-//random numbers for windows
-const unsigned int numWindows = 100;
-glm::vec3 positionsWin[numWindows];
-float rotationsWin[numWindows];
-
-const float crntTime = glfwGetTime();
-
-const glm::vec3 defaultTranslation = glm::vec3(0.0f, 0.0f, 0.0f);
-const glm::quat deafaultRotation = glm::quat(0.0f, 0.0f, 0.0f, 0.0f);
-const glm::vec3 defaultScale = glm::vec3(1.0f, 1.0f, 1.0f);
-
+const double crntTime = glfwGetTime();
 
 int main() {
 
@@ -243,14 +233,11 @@ int main() {
 
 
 
-	Shader shaderProgram("default.vert", "default.frag");
-	Shader blockShader("light.vert", "light.frag");
-	Shader grassShader("default.vert", "grass.frag");
-	Shader windowShader("default.vert", "windows.frag");
+	Shader blockShader("block.vert", "block.frag");
 	Shader skyboxShader("skybox.vert", "skybox.frag");
 	
-	glm::vec4 blockColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	glm::vec3 blockPos = glm::vec3(10.0f, 0.0f, 0.0f);
+	glm::vec4 blockColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.5f);
+	glm::vec3 blockPos = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::mat4 blockModel = glm::mat4(1.0f);
 	blockModel = glm::translate(blockModel, blockPos);
 	
@@ -263,19 +250,6 @@ int main() {
 	glUniformMatrix4fv(glGetUniformLocation(blockShader.ID, "model"), 0, GL_FALSE, glm::value_ptr(blockModel));
 	glUniform4f(glGetUniformLocation(blockShader.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
 	glUniform3f(glGetUniformLocation(blockShader.ID, "lightPos"), blockPos.x, blockPos.y, blockPos.z);
-
-	shaderProgram.Activate();
-	grassShader.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 0, GL_FALSE, glm::value_ptr(dirtModel));
-	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
-	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), blockPos.x, blockPos.y, blockPos.z);
-
-	
-
-	windowShader.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(grassShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(dirtModel));
-	glUniform4f(glGetUniformLocation(grassShader.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
-	glUniform3f(glGetUniformLocation(grassShader.ID, "lightPos"), dirtPos.x, dirtPos.y, dirtPos.z);
 
 	skyboxShader.Activate();
 	glUniform1i(glGetUniformLocation(skyboxShader.ID, "skybox"), 0);
@@ -300,33 +274,11 @@ int main() {
 	std::vector <GLuint>  cubeInd(cubeIndices, cubeIndices + sizeof(cubeIndices) / sizeof(GLuint));
 	std::vector <Texture> cubeTex(blockTexture, blockTexture + sizeof(blockTexture) / sizeof(Texture));
 	Mesh block(cubeVerts, cubeInd, cubeTex);
-	
-	Model ground("C:/repos/learn-open-gl/Models/ground/scene.gltf");
-	Model grass("C:/Repos/learn-open-gl/Models/grass/scene.gltf");
-	Model windows("C:/Repos/learn-open-gl/Models/windows/scene.gltf");
-	Model rat("C:/repos/learn-open-gl/Models/therat/street_rat_4k.gltf");
 
 	double prevTime = 0.0f;
+	double crntTime = 0.0f;
 	double timeDiff;
 	unsigned int counter = 0;
-
-	//srand(static_cast<unsigned>(time(0)));
-	for (unsigned int i = 0; i < numWindows; i++)
-	{
-		
-		positionsWin[i] = glm::vec3(
-			-15.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (15.0f - (-15.0f)))),
-			1.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (4.0f - 1.0f))),
-			-15.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (15.0f - (-15.0f))))
-			);
-		rotationsWin[i] = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 1.0f));
-	}
-
-	for (unsigned int i = 0; i < numWindows; i++)
-	{
-		std::cout << "positions win: " << positionsWin[i].x << std::endl;
-		std::cout << "rotations win: " << rotationsWin[i] << std::endl;
-	}
 
 	////////////////////////////
 	//START OF THE RENDER LOOP//
@@ -334,6 +286,7 @@ int main() {
 
 	while (!glfwWindowShouldClose(window))
 	{
+		crntTime = glfwGetTime();
 		timeDiff = crntTime - prevTime;
 		counter++;
 		if (timeDiff >= 1.0 / 60.0)
@@ -354,62 +307,33 @@ int main() {
 		//clear the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		camera.Inputs(window);
-		camera.updateMatrix(80.0f, 0.1f, 500.0f);
+		camera.updateMatrix(80.0f, 0.5f, 500.0f);
 		
-		//here, for singular meshes (not imported models)
-		//you can pass the translated identity matrix in,
-		//or transform that identity matrix over time like here
-		
-		//the speed at which the cube will rotate
-		
-		float rotSpeed = 1.0f;
-		glm::vec3 axis = glm::vec3(1.0f, 0.0f, 0.0f);
-		blockModel = glm::rotate(blockModel, glm::radians(rotSpeed), axis);
-		
-
 		//generate a minecraft chunk!!
-		for (float x = 0.0f; x < 10.0f; x += 0.2f)
+		for (float x = 0.0f; x < 16.0f; x += 1.0f)
 		{
-			blockPos = glm::vec3(x, 0.0f, 0.0f);
-			glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
-			block.Draw(blockShader, camera, newBlockModel);
-		}
-
-		blockModel = glm::translate(blockModel, glm::vec3(0.0f, 0.0f, 0.0f));
-
-		//block.Draw(blockShader, camera, blockModel);
-		//blockTexture->Unbind();
-		for (unsigned int x = 0; x < (20 * 40); x += 40)
-		{
-			for (unsigned int z = 0; z < (20 * 40); z += 40)
+			for (float y = 0.0f; y > -16.0f; y -= 1.0f)
 			{
-				glEnable(GL_CULL_FACE);
-				ground.Draw(grassShader, camera, glm::vec3(x - 200, 0.0f, z - 200));
-				glDisable(GL_CULL_FACE);
-				grass.Draw(grassShader, camera, glm::vec3(x - 200, 0.0f, z - 200));
+				for (float z = 0.0f; z < 16.0f; z += 1.0f)
+				{
+					blockPos = glm::vec3(x, y, z);
+					glm::mat4 newBlockModel = glm::translate(blockModel, blockPos);
+					block.Draw(blockShader, camera, newBlockModel);
+				}
 			}
 		}
-		
-		
-		//TODO: FIGURE OUT HOW THE HECK TO RANDOMLY TRANSLATE SAID THINGYS
-		for (unsigned int i = 0; i < numWindows; i++)
-		{
-			windows.Draw(windowShader, camera, positionsWin[i], glm::vec3(0.0f, rotationsWin[i], 0.0f));
-		}
-
-		rat.Draw(shaderProgram, camera, glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.0f, -2.0f, 0.0f), glm::vec3(300.0f));
 
 		//trees.Draw(shaderProgram, camera);
 		glEnable(GL_CULL_FACE);
 
+		// skybox stuff
 		glDepthFunc(GL_LEQUAL);
-
 		skyboxShader.Activate();
 
 		glm::mat4 view = glm::mat4(1.0f);
 		glm::mat4 projection = glm::mat4(1.0f);
 		view = glm::mat4(glm::mat3(glm::lookAt(camera.Position, camera.Position + camera.Orientation, camera.Up)));
-		projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / SCR_HEIGHT, 0.5f, 100.0f);
 		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
@@ -430,9 +354,8 @@ int main() {
 	//optional: de-allocate all resources once they've outlived their purpose:
 	// ----------------------------------------------------------------------
 	
-	shaderProgram.Delete();
 	blockShader.Delete();
-	grassShader.Delete();
+	skyboxShader.Delete();
 
 	
 	glfwDestroyWindow(window);
