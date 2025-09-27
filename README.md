@@ -335,3 +335,10 @@ But hey look, I made minecraft:
 Also I loaded in this random rat from the internet without a texture 
 
 ![da rat and da windows](readme-pix/rat-pic.png)
+
+# Doing the skybox, beautiful scenes lol
+
+This was pretty simple, definitely need to encapsulate this code in a class
+Right now it is all sitting in the main.cpp file.
+
+![skybox demo](readme-pix/skybox.png)

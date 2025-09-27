@@ -44,14 +44,14 @@ unsigned int skyboxIndices[] = {
 	0,1,5,
 	5,4,0,
 	// Back
-	2,3,7,
 	6,2,3,
+	3,7,6,
 	// Top
 	4,5,6,
 	6,7,4,
 	// Bottom
-	0,1,2,
-	2,3,0,
+	2,1,0,
+	0,3,2,
 
 };
 
@@ -211,7 +211,7 @@ int main() {
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	for (unsigned int i = 0; i < 0; i++)
+	for (unsigned int i = 0; i < 6; i++)
 	{
 		int width, height, nrChannels;
 		unsigned char* data = stbi_load(facesCubeMap[i].c_str(), &width, &height, &nrChannels, 0);
@@ -247,6 +247,7 @@ int main() {
 	Shader blockShader("light.vert", "light.frag");
 	Shader grassShader("default.vert", "grass.frag");
 	Shader windowShader("default.vert", "windows.frag");
+	Shader skyboxShader("skybox.vert", "skybox.frag");
 	
 	glm::vec4 blockColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	glm::vec3 blockPos = glm::vec3(10.0f, 0.0f, 0.0f);
@@ -275,6 +276,9 @@ int main() {
 	glUniformMatrix4fv(glGetUniformLocation(grassShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(dirtModel));
 	glUniform4f(glGetUniformLocation(grassShader.ID, "lightColor"), blockColor.x, blockColor.y, blockColor.z, blockColor.w);
 	glUniform3f(glGetUniformLocation(grassShader.ID, "lightPos"), dirtPos.x, dirtPos.y, dirtPos.z);
+
+	skyboxShader.Activate();
+	glUniform1i(glGetUniformLocation(skyboxShader.ID, "skybox"), 0);
 	
 
 
@@ -374,11 +378,17 @@ int main() {
 
 		//block.Draw(blockShader, camera, blockModel);
 		//blockTexture->Unbind();
-
-		//as for translating the Models and such... no idea
-		ground.Draw(grassShader, camera);
-		glDisable(GL_CULL_FACE);
-		grass.Draw(grassShader, camera);
+		for (unsigned int x = 0; x < (20 * 40); x += 40)
+		{
+			for (unsigned int z = 0; z < (20 * 40); z += 40)
+			{
+				glEnable(GL_CULL_FACE);
+				ground.Draw(grassShader, camera, glm::vec3(x - 200, 0.0f, z - 200));
+				glDisable(GL_CULL_FACE);
+				grass.Draw(grassShader, camera, glm::vec3(x - 200, 0.0f, z - 200));
+			}
+		}
+		
 		
 		//TODO: FIGURE OUT HOW THE HECK TO RANDOMLY TRANSLATE SAID THINGYS
 		for (unsigned int i = 0; i < numWindows; i++)
@@ -390,8 +400,27 @@ int main() {
 
 		//trees.Draw(shaderProgram, camera);
 		glEnable(GL_CULL_FACE);
+
+		glDepthFunc(GL_LEQUAL);
+
+		skyboxShader.Activate();
+
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 projection = glm::mat4(1.0f);
+		view = glm::mat4(glm::mat3(glm::lookAt(camera.Position, camera.Position + camera.Orientation, camera.Up)));
+		projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+		glBindVertexArray(skyboxVAO);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		glDepthFunc(GL_LESS);
+
 		 /*POLL EVENTS AND STUFF*/
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -411,16 +440,16 @@ int main() {
 	return 0;
 }
 
-
-
-
-
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 
@@ -430,4 +459,3 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
-
