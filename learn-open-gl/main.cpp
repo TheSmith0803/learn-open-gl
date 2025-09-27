@@ -336,7 +336,7 @@ int main() {
 	{
 		timeDiff = crntTime - prevTime;
 		counter++;
-		if (timeDiff >= 1.0 / 30.0)
+		if (timeDiff >= 1.0 / 60.0)
 		{
 			std::string FPS = std::to_string((1.0 / timeDiff) * counter);
 			std::string ms = std::to_string((timeDiff / counter) * 1000);
@@ -345,6 +345,7 @@ int main() {
 			prevTime = crntTime;
 			counter = 0;
 		}
+
 		// input
 		processInput(window);
 		
